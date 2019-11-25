@@ -32,6 +32,6 @@
 	</div>
 	<div class="row border p-4" style="display: inline-block; float: right; height: 40%; border-radius: 15px;">
 		<h2 style="text-align: center;">Add a profile picture</h2>
-		<input type="file" name="profilePictureURL" id="Media" required>
+		<input type="file" name="profilePicture" id="profilePicture" required>
 	</div>
 </form>
