@@ -22,11 +22,11 @@
     if($aUser->Login($email, $pw))
     {
         //direcTion si le login est reussi
-        header("Location: ../billboard.php?title=");
+        header("Location: ../mainPage.php");
         die();
     }
 
-    header("Location: ../error.php?ErrorMSG=invalid email or password");
+    header("Location: ../HTML/loginview.php?ErrorMSG=invalid email or password");
     die();
 
 ?>
