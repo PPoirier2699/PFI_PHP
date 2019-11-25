@@ -66,7 +66,7 @@ class User{
         Quality of Life methods (Dans la langue de shakespear (ou QOLM pour les intimes))
     */
     public function load_user($email){
-        $TDG = UserTDG->getInstance();
+        $TDG = UserTDG::getInstance();
         $res = $TDG->get_by_email($email);
 
         if(!$res)
@@ -112,7 +112,7 @@ class User{
 
     //Register Validation
     public function validate_register($email){
-        $TDG = UserTDG->getInstance();
+        $TDG = UserTDG::getInstance();
         $res = $TDG->get_by_email($email);
         $TDG = null;
         if($res)
@@ -139,7 +139,7 @@ class User{
         }
 
         //add user to DB
-        $TDG = UserTDG->getInstance();
+        $TDG = UserTDG::getInstance();
         $res = $TDG->add_user($email, $username, password_hash($pw, PASSWORD_DEFAULT),$profilePictureURL);
         $TDG = null;
         return true;

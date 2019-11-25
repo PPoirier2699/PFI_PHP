@@ -22,7 +22,7 @@
     if($aUser->Login($email, $pw))
     {
         //direcTion si le login est reussi
-        header("Location: ../mainPage.php");
+        header("Location: ../billboard.php?title=");
         die();
     }
 

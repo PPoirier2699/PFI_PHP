@@ -2,7 +2,7 @@
 
     class Validator{
         
-        static public function validate_email($email)
+        public function validate_email($email)
         {
             if(empty($email))
             {
@@ -19,7 +19,7 @@
             return false;
         }
 
-        static public function validate_password($password)
+        public function validate_password($password)
         {
             if(empty($password))
             {

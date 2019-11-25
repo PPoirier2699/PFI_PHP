@@ -5,7 +5,6 @@ class DBAO {
 
     //données nécessaire a la creation d'une connection
     private $servername;
-    private $port;
     private $username;
     private $password;
     private $dbname;
