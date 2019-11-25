@@ -10,7 +10,7 @@ class UserTDG extends DBAO{
     public function __construct(){
         
         $this->tableName = "users";
-        
+        parent::__construct();
     }
     public static function getInstance()
     {

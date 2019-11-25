@@ -1,4 +1,7 @@
 <?php
+if(isset($_SESSION['userID'])){
+    $navLinks = array('<a style="color:black;" class="nav-link" href="myProfile.php">' . $_SESSION['userName'] . '</a>');
+}
  $navLinks = array('<a style="color:black;" class="nav-link" href="login.php">Login</a>',
                     '<a style="color:black;" class="nav-link" href="register.php">Register</a>');
 ?>
