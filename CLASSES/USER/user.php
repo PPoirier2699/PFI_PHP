@@ -167,12 +167,10 @@ class User
         $path = tempnam("../IMG", '');
         unlink($path);
         $file_name = basename($path, ".tmp");
-
         //creation de l'url pour la DB
         $url = $target_dir . $file_name . "." . $media_file_type;
         //deplacement du fichier uploader vers le bon repertoire (Medias)
         move_uploaded_file($profilePictureURL['tmp_name'], "../" . $url);
-        
 
         //add user to DB
         $TDG = UserTDG::getInstance();
