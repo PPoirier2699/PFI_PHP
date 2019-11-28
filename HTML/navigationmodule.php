@@ -5,10 +5,9 @@ if(isset($_SESSION['userID'])){
 }
 else{
     $navLinks = array('<a style="color:black;" class="nav-link" href="login.php">Login</a>',
-    '<a style="color:black;" class="nav-link" href="register.php">Register</a>',
-);
+    '<a style="color:black;" class="nav-link" href="register.php">Register</a>');
 }
-
+array_push($navLinks,'<a style="color:black;" class="nav-link" href="newAlbum.php">New album</a>');
 ?>
 <div class="jumbotron text-center" style="padding: 7em; margin-bottom:0; background-color: #D24545;">
 
