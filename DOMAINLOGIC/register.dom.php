@@ -6,6 +6,14 @@
     session_start();
 
     //Verifier l'utiilite de ca, supprimer si inutile
+    if(isset($_GET['ErrorMSG']))
+        echo $_GET['ErrorMSG'];
+   
+    if(!empty($error)){
+        echo "<script>
+                alert('$error');
+            </script>";
+    }
 
     $email = $_POST["email"];
     $username = $_POST["username"];
@@ -19,7 +27,7 @@
 
     $user = new User();
     if(!$user->register($email,$username,$pw,$pwv, $profilePicture)){
-        header("Location: ../error.php?ErrorMSG=Register%20error%20");
+        header("Location: ../register.php?ErrorMSG=Register%20error%20");
         die();
     }             
     header("Location: ../login.php");
