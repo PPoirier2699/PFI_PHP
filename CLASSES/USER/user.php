@@ -179,4 +179,58 @@ class User
         $TDG = null;
         return true;
     }
+    public function update_user_info($email, $newmail, $newname){
+        //load user infos
+        if(!$this->load_user($email)) {
+          return false;
+        }        
+        if(empty($this->id) || empty($newmail) || empty($newname)){
+          return false;
+        }
+        //check if email is already used
+        if(!$this->validate_email_not_exists($newmail) && $email != $newmail)
+        {
+            return false;
+        }        
+
+
+        $this->email = $newmail;
+        $this->username = $newname;
+
+        $TDG = new UserTDG();
+        $res = $TDG->update_info($this->email, $this->username, $this->id);
+        if($res){
+          $_SESSION["userName"] = $this->username;
+          $_SESSION["userEmail"] = $this->email;
+        }
+        $TDG = null;
+        return $res;
+    }
+    /*
+      @var: current $email, oldpw, new pw, newpw validation
+    */
+    public function update_user_pw($email, $oldpw, $pw, $pwv){
+        //load user infos
+        if(!$this->load_user($email))
+        {
+          return false;
+        }
+        //check if passed param are valids
+        if(empty($pw) || $pw != $pwv){
+          return false;
+        }
+        //verify password
+        if(!password_verify($oldpw, $this->password))
+        {
+            return false;
+        }
+        //create TDG and update to new hash
+        $TDG = new UserTDG();
+        $NHP = password_hash($pw, PASSWORD_DEFAULT);
+        $res = $TDG->update_password($NHP, $this->id);
+        $this->password = $NHP;
+        $TDG = null;
+        //only return true if update_user_pw returned true
+        return $res;
+    }
 }
