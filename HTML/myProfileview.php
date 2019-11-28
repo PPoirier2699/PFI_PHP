@@ -12,8 +12,9 @@ if(!isset($_SESSION['userID'])){
             <img id="profilepic" class="border" src="<?php echo $_SESSION["profilePicPath"]?>" alt="Your profile pic">   
             <div>Username : <input name="username" class="form-control" value='<?php echo $_SESSION["userName"]?>'></div>
             <div>E-Mail : <input name="email" class="form-control" value='<?php echo $_SESSION["userEmail"]?>'></div>
-            <div>Password : <input name="pw" class="form-control" ></div>
-            <div>Confirm Password : <input name="pwValidation" class="form-control" ></div>
+            <div>Password : <input type="password" name="oldpw" class="form-control" ></div>
+            <div>New Password : <input type="password" name="pw" class="form-control" ></div>
+            <div>Confirm New Password : <input type="password" name="pwValidation" class="form-control" ></div>
 
             <button class="btn btn-success mb-sm-3" type="submit">Submit Changes</button>
         </div>
