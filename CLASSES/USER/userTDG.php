@@ -159,7 +159,7 @@ class UserTDG extends DBAO{
 
 
     public function add_user($email, $username, $password, $profilePictureURL){
-        $this->existing_infos($email,$username);
+        
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
@@ -234,16 +234,6 @@ class UserTDG extends DBAO{
         //fermeture de connection PDO
         $conn = null;
         return $resp;
-    }
-    public function existing_infos($email,$username){
-        if(!empty($this->get_by_email($email))){
-            header("Location: ../../register.php?ErrorMSG=Email%20already%20register!");
-            die();
-        }
-        if(!empty($this->get_by_username($username))){
-            header("Location: ../../register.php?ErrorMSG=Username%20already%20taken!");
-            die();
-        }
     }
 
 }

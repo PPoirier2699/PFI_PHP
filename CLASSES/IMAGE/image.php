@@ -1,16 +1,16 @@
 <?php
 
-include_once __DIR__ . "/albumTDG.php";
+include_once __DIR__ . "/imageTDG.PHP";
 
-class Album{
+class Image{
 
     private $id;
-    private $title;
-    private $authorID;
+    private $url;
+    private $albumID;
     private $description;
     private $creationTime;
 
-    
+   
     public function __construct(){
        
     }
@@ -21,12 +21,12 @@ class Album{
         return $this->id;
     }
 
-    public function get_title(){
-        return $this->title;
+    public function get_url(){
+        return $this->url;
     }
 
-    public function get_authorID (){
-        return $this->authorID;
+    public function get_albumID(){
+        return $this->albumID;
     }
 
     public function get_description(){
@@ -39,32 +39,32 @@ class Album{
 
 
     //setters
-    public function set_id($id){
+    public function set_ID($id){
         $this->id = $id;
     }
 
-    public function set_title($title){
-        $this->title = $title;
+    public function set_url($url){
+        $this->url = $url;
     }
 
-    public function set_authorID($aID){
-        $this->authorID = $aID;
+    public function set_albumID($albumId){
+        $this->albumID = $albumId;
     }
 
     public function set_description($desc){
         $this->description = $desc;
     }
 
-    public function set_creationTime($ct){
-        $this->description = $ct;
+    public function set_creationTime($creaTime){
+        $this->creationTime = $creaTime;
     }
 
 
     /*
         Quality of Life methods (Dans la langue de shakespear (ou QOLM pour les intimes))
     */
-    public function load_album($id){
-        $TDG = AlbumTDG::getInstance();
+    public function load_image($id){
+        $TDG = new ImageTDG();
         $res = $TDG->get_by_id($id);
 
         if(!$res)
@@ -74,14 +74,15 @@ class Album{
         }
 
         $this->id = $res['id'];
-        $this->title = $res['title'];
-        $this->authorID = $res['authorID'];
-        $this->description = $res['description'];
-        $this->creationTime = $res['creationTime'];
+        $this->email = $res['url'];
+        $this->username = $res['albumID'];
+        $this->password = $res['description'];
+        $this->profilPicture = $res['creationTime'];
         
         $TDG = null;
         return true;
     }
+ 
 }
 
 

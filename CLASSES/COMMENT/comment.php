@@ -1,14 +1,15 @@
 <?php
 
-include_once __DIR__ . "/albumTDG.php";
+include_once __DIR__ . "/commentTDG.php";
 
-class Album{
+class Comment{
 
     private $id;
-    private $title;
-    private $authorID;
-    private $description;
+    private $objectType; // si le commentaire est sur une image ou un album
     private $creationTime;
+    private $content;
+    private $authorID;
+
 
     
     public function __construct(){
@@ -21,20 +22,19 @@ class Album{
         return $this->id;
     }
 
-    public function get_title(){
-        return $this->title;
+    public function get_objectType(){
+        return $this->objectType;
     }
 
-    public function get_authorID (){
-        return $this->authorID;
-    }
-
-    public function get_description(){
-        return $this->description;
+    public function get_content(){
+        return $this->content;
     }
 
     public function get_creationTime(){
         return $this->creationTime;
+    }
+    public function get_authorID(){
+        return $this->authorID;
     }
 
 
@@ -43,16 +43,15 @@ class Album{
         $this->id = $id;
     }
 
-    public function set_title($title){
-        $this->title = $title;
+    public function set_objectType($objType){
+        $this->objectType = $objType;
+    }
+    public function set_authorID($aId){
+        $this->authorID = $aId;
     }
 
-    public function set_authorID($aID){
-        $this->authorID = $aID;
-    }
-
-    public function set_description($desc){
-        $this->description = $desc;
+    public function set_content($content){
+        $this->content = $content;
     }
 
     public function set_creationTime($ct){
@@ -63,8 +62,8 @@ class Album{
     /*
         Quality of Life methods (Dans la langue de shakespear (ou QOLM pour les intimes))
     */
-    public function load_album($id){
-        $TDG = AlbumTDG::getInstance();
+    public function load_comment($id){
+        $TDG = CommentTDG::getInstance();
         $res = $TDG->get_by_id($id);
 
         if(!$res)
@@ -74,9 +73,9 @@ class Album{
         }
 
         $this->id = $res['id'];
-        $this->title = $res['title'];
+        $this->objectType = $res['objectType'];
         $this->authorID = $res['authorID'];
-        $this->description = $res['description'];
+        $this->content = $res['content'];
         $this->creationTime = $res['creationTime'];
         
         $TDG = null;
