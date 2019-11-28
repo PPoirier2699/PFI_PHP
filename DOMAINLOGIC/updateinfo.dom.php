@@ -27,10 +27,33 @@
   }
 
   $user = new User();
-  if(!$user->update_user_info($_SESSION["userEmail"], $newmail, $newname)){
-    header("Location: ../myProfile.php?ErrorMSG=invalid%20request");
-    die();
+
+  $user->update_user_info($_SESSION["userEmail"], $newmail, $newname);
+
+
+  $oldpw = $_POST["oldpw"];
+  $pw = $_POST["pw"];
+  $pwV = $_POST["pwValidation"];
+
+  if(!empty($oldpw) && !empty($pw) && !empty($pwV)) {
+  //update le password
+    if($pw != $pwV) {
+      header("Location: ../myProfile.php?ErrorMSG=Passwords doesnt match");
+      die();
+    }
+
+    if(empty($pw) || !Validator::validate_password($pw)){
+      header("Location: ../myProfile.php?ErrorMSG=Passwords doesnt match");
+      die();
+    }
+
+    if(!$user->update_user_pw($_SESSION["userEmail"], $oldpw, $pw, $pwV)){
+      header("Location: ../myProfile.php?ErrorMSG=invalid%20request");
+      die();
+    }
   }
+  
+
   header("Location: ../myProfile.php");
   die();
 ?>
