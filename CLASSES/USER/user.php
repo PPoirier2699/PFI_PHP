@@ -135,23 +135,22 @@ class User
     }
 
 
-    public function register($email, $username, $pw, $vpw, $profilePictureURL)
+   public function register($email, $username, $pw, $vpw, $profilePictureURL)
     {
 
         //check is both password are equals
         if (!($pw === $vpw) || empty($pw) || empty($vpw)) {
-            return false;
+            header("Location: ../register.php?ErrorMSG=Password%20and%20password%20aren't%20the%20same!");
+            die();
         }
 
         //check if the image is a fake image
         if (!getimagesize($profilePictureURL['tmp_name'])) {
-            return false;
+            header("Location: ../register.php?ErrorMSG=This%20isn't%20a%20real%20image!");
+            die();
         }
 
-        //check if user exists
-        if (!$this->validate_register($email, $pw)) {
-            return false;
-        }
+
         $target_dir = "IMG/";
 
         //obtenir l'extention du fichier uploader
@@ -176,6 +175,7 @@ class User
         //add user to DB
         $TDG = UserTDG::getInstance();
         $res = $TDG->add_user($email, $username, password_hash($pw, PASSWORD_DEFAULT), $url);
+        $this->Login($email,$pw);
         $TDG = null;
         return true;
     }
