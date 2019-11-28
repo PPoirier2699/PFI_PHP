@@ -148,4 +148,36 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+    public function delete_album($id){
+        // supprime l'album
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "DELETE FROM $tableName WHERE id=:id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $resp =  true;
+        }
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        // supprime tous les images qui etait dans l'album
+        try{
+            $conn = $this->connect();
+            $query = "DELETE FROM images WHERE albumID=:id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $resp =  true;
+        }
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
 }
