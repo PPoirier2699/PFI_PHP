@@ -186,17 +186,19 @@ class UserTDG extends DBAO{
     /*
       update juste pour les infos non sensibles  
     */
-    public function update_info($email, $username, $id, $profilePictureURL){
+    /*
+      update juste pour les infos non sensibles  
+    */
+    public function update_info($email, $username, $id){
         
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
-            $query = "UPDATE $tableName SET email=:email, username=:username , profilePictureURL =:profilePictureURL WHERE id=:id";
+            $query = "UPDATE $tableName SET email=:email, username=:username WHERE id=:id";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':profilePictureURL ', $profilePictureURL);
             $stmt->execute();
             $resp = true;
         }
