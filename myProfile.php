@@ -1,6 +1,7 @@
 <?php
     session_start();
 
+
     //load view content
     $module = "myProfileview.php";
     $content = array();
