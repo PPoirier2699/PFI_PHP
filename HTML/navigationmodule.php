@@ -1,13 +1,13 @@
 <?php
 if(isset($_SESSION['userID'])){
     $navLinks = array('<a style="color:black;" class="nav-link" href="myProfile.php">' . $_SESSION['userName'] . '</a>',
-                      '<a style="color:black;" class="nav-link" href="DOMAINLOGIC/logout.dom.php">Logout</a>');
+                      '<a style="color:black;" class="nav-link" href="DOMAINLOGIC/logout.dom.php">Logout</a>',
+                      '<a style="color:black;" class="nav-link" href="newAlbum.php">New album</a>');
 }
 else{
     $navLinks = array('<a style="color:black;" class="nav-link" href="login.php">Login</a>',
     '<a style="color:black;" class="nav-link" href="register.php">Register</a>');
 }
-array_push($navLinks,'<a style="color:black;" class="nav-link" href="newAlbum.php">New album</a>');
 ?>
 <div class="jumbotron text-center" style="padding: 7em; margin-bottom:0; background-color: #D24545;">
 
