@@ -1,0 +1,28 @@
+img#profilepic {
+    grid-column: 1/2;
+    grid-row: 1/5;
+    float: left;
+    border-radius: 15px;
+    padding: 1%;
+    max-width: 100%;
+}
+#infoProfile {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#infoProfile > div, #infoProfile > button {
+    grid-column: 2/3;
+    padding-left: 10%;
+    padding-bottom: 2%;
+}
+#infoprofile > button {
+    width: 80%;
+    margin:auto;
+}
+#infoProfile > div > input {
+    display: initial;
+    width: 70%;
+    float: right;
+}
