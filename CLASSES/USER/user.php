@@ -115,6 +115,7 @@ class User
         $_SESSION["userID"] = $this->id;
         $_SESSION["userEmail"] = $this->email;
         $_SESSION["userName"] = $this->username;
+        $_SESSION["profilePicPath"] = $this->profilePictureURL;
 
         return true;
     }
