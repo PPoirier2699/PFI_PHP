@@ -159,7 +159,7 @@ class UserTDG extends DBAO{
 
 
     public function add_user($email, $username, $password, $profilePictureURL){
-        
+        $this->existing_infos($email,$username);
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
@@ -186,19 +186,17 @@ class UserTDG extends DBAO{
     /*
       update juste pour les infos non sensibles  
     */
-    /*
-      update juste pour les infos non sensibles  
-    */
-    public function update_info($email, $username, $id){
+    public function update_info($email, $username, $id, $profilePictureURL){
         
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
-            $query = "UPDATE $tableName SET email=:email, username=:username WHERE id=:id";
+            $query = "UPDATE $tableName SET email=:email, username=:username , profilePictureURL =:profilePictureURL WHERE id=:id";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':profilePictureURL ', $profilePictureURL);
             $stmt->execute();
             $resp = true;
         }
@@ -236,6 +234,16 @@ class UserTDG extends DBAO{
         //fermeture de connection PDO
         $conn = null;
         return $resp;
+    }
+    public function existing_infos($email,$username){
+        if(!empty($this->get_by_email($email))){
+            header("Location: ../register.php?ErrorMSG=Email%20already%20register!");
+            die();
+        }
+        if(!empty($this->get_by_username($username))){
+            header("Location: ../register.php?ErrorMSG=Username%20already%20taken!");
+            die();
+        }
     }
 
 }
