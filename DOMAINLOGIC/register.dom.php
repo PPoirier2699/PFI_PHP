@@ -6,14 +6,6 @@
     session_start();
 
     //Verifier l'utiilite de ca, supprimer si inutile
-    if(isset($_GET['ErrorMSG']))
-        echo $_GET['ErrorMSG'];
-   
-    if(!empty($error)){
-        echo "<script>
-                alert('$error');
-            </script>";
-    }
 
     $email = $_POST["email"];
     $username = $_POST["username"];
