@@ -1,12 +1,14 @@
 <?php
 if(isset($_SESSION['userID'])){
-    $navLinks = array('<a style="color:black;" class="nav-link" href="myProfile.php">' . $_SESSION['userName'] . '</a>');
+    $navLinks = array('<a style="color:black;" class="nav-link" href="myProfile.php">' . $_SESSION['userName'] . '</a>',
+                      '<a style="color:black;" class="nav-link" href="DOMAINLOGIC/logout.dom.php">Logout</a>');
 }
- $navLinks = array('<a style="color:black;" class="nav-link" href="login.php">Login</a>',
-                    '<a style="color:black;" class="nav-link" href="register.php">Register</a>',
-                    '<a style="color:black;" class="nav-link" href="DOMAINLOGIC/logout.dom.php">Logout</a>',
-                    '<a style="color:black;" class="nav-link" href="myProfile.php">Profile</a>'
-                );
+else{
+    $navLinks = array('<a style="color:black;" class="nav-link" href="login.php">Login</a>',
+    '<a style="color:black;" class="nav-link" href="register.php">Register</a>',
+);
+}
+
 ?>
 <div class="jumbotron text-center" style="padding: 7em; margin-bottom:0; background-color: #D24545;">
 
