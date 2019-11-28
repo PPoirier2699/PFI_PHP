@@ -2,32 +2,34 @@
 
 include_once __DIR__ . "/../../UTILS/connector.php";
 
-class AlbumTDG extends DBAO{
+class ImageTDG extends DBAO{
 
     private $tableName;
     private static $_instance = null;
 
     public function __construct(){
         
-        $this->tableName = "albums";
-        parent::__construct();
+        $this->tableName = "images";
+        
     }
     public static function getInstance()
     {
         if(is_null(self::$_instance))
         {
-            self::$_instance = new AlbumTDG();  
+            self::$_instance = new ImageTDG();  
         }
         return self::$_instance;
     }
+
     //create table
     public function createTable(){
         
         try{
             $conn = $this->connect();
-            $query = "CREATE TABLE IF NOT EXISTS albums (id INTEGER(10) AUTO INCREMENT PRIMARY KEY,
-            title VARCHAR(50) NOT NULL,
-            authorID INTEGER(10) NOT NULL,
+            $query = "CREATE TABLE IF NOT EXISTS images
+            (id INTEGER(10) AUTO_INCREMENT PRIMARY KEY,
+            url LONGTEXT NOT NULL,
+            albumID INTEGER(10) NOT NULL,
             description LONGTEXT NOT NULL,
             creationTime DATE NOT NULL)";
             $stmt = $conn->prepare($query);
@@ -44,12 +46,15 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+
+
     //drop table
     public function drop_table(){
         
         try{
             $conn = $this->connect();
-            $query = "DROP TABLE albums";
+            $tableName = $this->tableName;
+            $query = "DROP TABLE $tableName";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             $resp = true;
@@ -64,11 +69,14 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+
+
     public function get_by_id($id){
         
         try{
             $conn = $this->connect();
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE id=:id";
+            $tableName = $this->tableName;
+            $query = "SELECT id, url, albumID, description, creationTime FROM $tableName WHERE id=:id";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
@@ -84,13 +92,16 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    public function get_by_title($title){
+
+
+    public function get_by_email($url){
         
         try{
             $conn = $this->connect();
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE title=:title";
+            $tableName = $this->tableName;
+            $query = "SELECT id, url, albumID, description, creationTime FROM $tableName WHERE url=:url";
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':url', $url);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetch();
@@ -104,14 +115,16 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    public function get_by_authorID($aID){
+
+
+    public function get_by_albumID($albumid){
         
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE auhtorID=:aID";
+            $query = "SELECT * FROM $tableName WHERE albumID=:albumID";
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':aID', $aID);
+            $stmt->bindParam(':albumID', $albumid);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetchAll();
@@ -125,15 +138,39 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    public function add_album($title, $authorID, $description, $creationTime){
+
+
+    public function get_all_images(){
         
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
-            $query = "INSERT INTO albums (title, authorID, description, creationTime) VALUES (:title, :authorID, :description, :creationTime)";
+            $query = "SELECT * FROM $tableName";
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':authorID', $authorID);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+        }
+        
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $result;
+    }
+
+
+    public function add_image($url, $albumID, $description, $creationTime){
+        
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "INSERT INTO $tableName (url, albumID, description,creationTime) VALUES (:url, :albumID, :description, :creationTime)";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':url', $url);
+            $stmt->bindParam(':albumID', $albumID);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':creationTime', $creationTime);
             $stmt->execute();

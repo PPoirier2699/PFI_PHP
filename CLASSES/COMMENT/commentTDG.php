@@ -2,21 +2,21 @@
 
 include_once __DIR__ . "/../../UTILS/connector.php";
 
-class AlbumTDG extends DBAO{
+class CommentTDG extends DBAO{
 
     private $tableName;
     private static $_instance = null;
 
     public function __construct(){
         
-        $this->tableName = "albums";
+        $this->tableName = "comments";
         parent::__construct();
     }
     public static function getInstance()
     {
         if(is_null(self::$_instance))
         {
-            self::$_instance = new AlbumTDG();  
+            self::$_instance = new CommentTDG();  
         }
         return self::$_instance;
     }
@@ -25,11 +25,12 @@ class AlbumTDG extends DBAO{
         
         try{
             $conn = $this->connect();
-            $query = "CREATE TABLE IF NOT EXISTS albums (id INTEGER(10) AUTO INCREMENT PRIMARY KEY,
-            title VARCHAR(50) NOT NULL,
-            authorID INTEGER(10) NOT NULL,
-            description LONGTEXT NOT NULL,
-            creationTime DATE NOT NULL)";
+            $query = "CREATE TABLE IF NOT EXISTS comments
+            (id INTEGER(10) AUTO_INCREMENT PRIMARY KEY,
+            objectType CHAR(5) NOT NULL,
+            creationTime DATE NOT NULL,
+            content LONGTEXT NOT NULL,
+            authorID INTEGER(10) NOT NULL)";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             $resp = true;
@@ -49,7 +50,7 @@ class AlbumTDG extends DBAO{
         
         try{
             $conn = $this->connect();
-            $query = "DROP TABLE albums";
+            $query = "DROP TABLE comments";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             $resp = true;
@@ -68,7 +69,8 @@ class AlbumTDG extends DBAO{
         
         try{
             $conn = $this->connect();
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE id=:id";
+            $tableName = $this->tableName;
+            $query = "SELECT id, objectType, creationTime, content, authorID FROM $tableName WHERE id=:id";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
@@ -84,32 +86,13 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    public function get_by_title($title){
-        
-        try{
-            $conn = $this->connect();
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE title=:title";
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(':title', $title);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $result = $stmt->fetch();
-        }
-        
-        catch(PDOException $e)
-        {
-            echo "Error: " . $e->getMessage();
-        }
-        //fermeture de connection PDO
-        $conn = null;
-        return $result;
-    }
+    
     public function get_by_authorID($aID){
         
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE auhtorID=:aID";
+            $query = "SELECT id, objectType, creationTime, content, authorID FROM $tableName WHERE auhtorID=:aID";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':aID', $aID);
             $stmt->execute();
@@ -125,17 +108,16 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    public function add_album($title, $authorID, $description, $creationTime){
+    public function add_comment($objectID, $creationTime, $content, $authorID){
         
         try{
             $conn = $this->connect();
-            $tableName = $this->tableName;
-            $query = "INSERT INTO albums (title, authorID, description, creationTime) VALUES (:title, :authorID, :description, :creationTime)";
+            $query = "INSERT INTO comments (objectType, creationTime, content, authorID) VALUES (:objectType, :creationTime, :content, :authorID)";
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':authorID', $authorID);
-            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':objectType', $objectID);
             $stmt->bindParam(':creationTime', $creationTime);
+            $stmt->bindParam(':content', $content);
+            $stmt->bindParam(':authorID', $authorID);
             $stmt->execute();
             $resp =  true;
         }
