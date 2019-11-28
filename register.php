@@ -1,6 +1,7 @@
 <?php
     session_start();
 
+
     //load view content
     $module = "registerview.php";
     $content = array();

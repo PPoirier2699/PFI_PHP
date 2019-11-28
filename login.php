@@ -1,11 +1,12 @@
 <?php
     session_start();
 
+
     //load view content
     $module = "loginview.php";
     $content = array();
     array_push($content, $module);
-
+    
     //variables used in the loaded module
     $title = "Login";
 
