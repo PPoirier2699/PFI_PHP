@@ -34,7 +34,6 @@ class AlbumTDG extends DBAO{
             $stmt->execute();
             $resp = true;
         }
-
         //error catch and msg display
         catch(PDOException $e)
         {
@@ -54,7 +53,6 @@ class AlbumTDG extends DBAO{
             $stmt->execute();
             $resp = true;
         }
-
         //error catch and msg display
         catch(PDOException $e)
         {
@@ -75,7 +73,6 @@ class AlbumTDG extends DBAO{
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetch();
         }
-        
         catch(PDOException $e)
         {
             echo "Error: " . $e->getMessage();
@@ -95,7 +92,6 @@ class AlbumTDG extends DBAO{
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetch();
         }
-        
         catch(PDOException $e)
         {
             echo "Error: " . $e->getMessage();
@@ -108,7 +104,6 @@ class AlbumTDG extends DBAO{
         
         try{
             $conn = $this->connect();
-            $tableName = $this->tableName;
             $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE auhtorID=:aID";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':aID', $aID);
@@ -116,7 +111,6 @@ class AlbumTDG extends DBAO{
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetchAll();
         }
-        
         catch(PDOException $e)
         {
             echo "Error: " . $e->getMessage();
@@ -129,7 +123,6 @@ class AlbumTDG extends DBAO{
         
         try{
             $conn = $this->connect();
-            $tableName = $this->tableName;
             $query = "INSERT INTO albums (title, authorID, description, creationTime) VALUES (:title, :authorID, :description, :creationTime)";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':title', $title);
@@ -139,7 +132,6 @@ class AlbumTDG extends DBAO{
             $stmt->execute();
             $resp =  true;
         }
-        
         catch(PDOException $e)
         {
             $resp =  false;
