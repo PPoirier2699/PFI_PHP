@@ -7,7 +7,7 @@
 
     if(isset($_SESSION["userID"]))
     {
-        header("Location: ../error.php?ErrorMSG=already%20logged%20in!");
+        header("Location: ../login.php?ErrorMSG=already%20logged%20in!");
         die();
     }
 
@@ -22,11 +22,11 @@
     if($aUser->Login($email, $pw))
     {
         //direcTion si le login est reussi
-        header("Location: ../billboard.php?title=");
+        header("Location: ../mainPage.php");
         die();
     }
 
-    header("Location: ../HTML/loginview.php?ErrorMSG=invalid email or password");
+    header("Location: ../login.php?ErrorMSG=invalid email or password");
     die();
 
 ?>
