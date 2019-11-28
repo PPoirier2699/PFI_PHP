@@ -1,9 +1,3 @@
-<?php
-   if(isset($_GET['ErrorMSG'])){
-		$error = $_GET['ErrorMSG'];  
-		echo "<script>alert('$error');</script>";
-   }
-?>
 <div class="row border p-4" style="display: inline-block; border-radius: 15px;">
 
 	<form action="DOMAINLOGIC/login.dom.php" method="post">
