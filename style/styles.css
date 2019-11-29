@@ -26,12 +26,15 @@ img#profilepic {
     width: 70%;
     float: right;
 }
-#profilePicChange {    
+.fileinput {    
     display: none;	
 }
-#profilePicChange + label {
+.fileinput + label {
+    width: 75%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
     text-align: center;
-    cursor: pointer; /* "hand" cursor */
+    cursor: pointer;
     background-color: #D24545;
     padding: 5%;
     font-weight: bolder;
