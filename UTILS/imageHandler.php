@@ -3,7 +3,7 @@ class ImageHandler {
     public static function FileToImageURL($file) {
         //check if the image is a fake image
         if (!getimagesize($file['tmp_name'])) {
-            header("Location: ../mainPage.php?ErrorMSG=This%20is not%20a%20real%20image!");
+            header("Location: ../mainPage.php?ErrorMSG=This image is not valid!");
             die();
         }
 
@@ -17,7 +17,8 @@ class ImageHandler {
         $img_extensions_arr = array("jpg", "jpeg", "png", "gif");
 
         if (!in_array($media_file_type, $img_extensions_arr)) {
-            return false;
+            header("Location: ../mainPage.php?ErrorMSG=This image is not valid!");
+            die();
         }
 
         //creation d'un nom unique pour la "PATH" du fichier

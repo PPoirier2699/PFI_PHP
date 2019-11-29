@@ -12,8 +12,8 @@ class DBAO {
 
     protected function __construct(){
         $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "";
+        $this->username = "admin";
+        $this->password = "admin4321";
         $this->dbname = "pfi";
         $this->charset = "utf8mb4";
     }

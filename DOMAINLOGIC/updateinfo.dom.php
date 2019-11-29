@@ -52,7 +52,14 @@
       die();
     }
   }
-  
+  $newProfilePicture = $_FILES["profilePicChange"];
+
+  if(!empty($newProfilePicture["name"])) {
+    if(!$user->update_user_picture($_SESSION["userEmail"], $newProfilePicture)) {
+      header("Location: ../myProfile.php?ErrorMSG=Invalid Image");
+      die();
+    }
+  }
 
   header("Location: ../myProfile.php");
   die();
