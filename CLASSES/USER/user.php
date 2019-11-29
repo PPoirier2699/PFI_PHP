@@ -135,48 +135,31 @@ class User
     }
 
 
-   public function register($email, $username, $pw, $vpw, $profilePictureURL)
+   public function register($email, $username, $pw, $vpw, $profilePicture)
     {
-
+        $url = ImageHandler::FileToImageURL($profilePicture);
         //check is both password are equals
         if (!($pw === $vpw) || empty($pw) || empty($vpw)) {
             header("Location: ../register.php?ErrorMSG=Password%20and%20password%20aren't%20the%20same!");
             die();
         }
 
-        //check if the image is a fake image
-        if (!getimagesize($profilePictureURL['tmp_name'])) {
-            header("Location: ../register.php?ErrorMSG=This%20isn't%20a%20real%20image!");
-            die();
-        }
-
-
-        $target_dir = "IMG/";
-
-        //obtenir l'extention du fichier uploader
-        $media_file_type = pathinfo($profilePictureURL['name'], PATHINFO_EXTENSION);
-
-        // Valid file extensions
-        $img_extensions_arr = array("jpg", "jpeg", "png", "gif");
-
-        if (!in_array($media_file_type, $img_extensions_arr)) {
-            return false;
-        }
-
-        //creation d'un nom unique pour la "PATH" du fichier
-        $path = tempnam("../IMG", '');
-        unlink($path);
-        $file_name = basename($path, ".tmp");
-        //creation de l'url pour la DB
-        $url = $target_dir . $file_name . "." . $media_file_type;
-        //deplacement du fichier uploader vers le bon repertoire (Medias)
-        move_uploaded_file($profilePictureURL['tmp_name'], "../" . $url);
-
+        
         //add user to DB
         $TDG = UserTDG::getInstance();
         $res = $TDG->add_user($email, $username, password_hash($pw, PASSWORD_DEFAULT), $url);
         $this->Login($email,$pw);
         $TDG = null;
+        return true;
+    }
+    public function validate_email_not_exists($email){
+        $TDG = new UserTDG();
+        $res = $TDG->get_by_email($email);
+        $TDG = null;
+        if($res)
+        {
+            return false;
+        }
         return true;
     }
     public function update_user_info($email, $newmail, $newname){
@@ -231,6 +214,21 @@ class User
         $this->password = $NHP;
         $TDG = null;
         //only return true if update_user_pw returned true
+        return $res;
+    }
+    
+    public function update_user_picture($email, $file) {
+        $url = ImageHandler::FileToImageURL($file);
+
+
+        $this->profilePictureURL = $url;
+
+        $TDG = new UserTDG();
+        $res = $TDG->update_picture($email, $url);
+        if($res) {
+            $_SESSION["profilePicPath"] = $this->profilePictureURL;
+        }
+        $TDG = null;
         return $res;
     }
 }
