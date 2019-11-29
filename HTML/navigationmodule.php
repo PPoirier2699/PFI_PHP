@@ -1,7 +1,14 @@
 <?php
 if(isset($_SESSION['userID'])){
-    $navLinks = array('<a style="color:black;" class="nav-link" href="myProfile.php">' . $_SESSION['userName'] . '</a>',
-                      '<a style="color:black;" class="nav-link" href="DOMAINLOGIC/logout.dom.php">Logout</a>',
+    $navLinks = array('<div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.
+                            $_SESSION['userName'] .
+                            '</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">              
+                                <a class="dropdown-item" href="myProfile.php">My Profile</a>
+                                <a class="dropdown-item" href="DOMAINLOGIC/logout.dom.php">Logout</a>
+                            </div>
+                        </div>',                  
                       '<a style="color:black;" class="nav-link" href="newAlbum.php">New album</a>');
 }
 else{
@@ -14,11 +21,10 @@ else{
     <h2 class="display-4">Final Project</h2>
     <div class="container">
         <nav class="navbar navbar-expand-sm navbar-light bg-light shadow" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1;">
-                
             <ul class="navbar-nav">
                 <?php 
                 for($i = 0; $i < count($navLinks); $i++){
-                    echo "<li class='nav-item'>";
+                    echo "<li class='nav-item mr-3'>";
                     echo $navLinks[$i];
                     echo "</li>";
                 }      

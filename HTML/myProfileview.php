@@ -1,12 +1,5 @@
-<?php
-if(!isset($_SESSION['userID'])){        
-        header("Location: login.php?ErrorMSG=Not Logged In");
-        die();
-}
-?>
-
 <main>
-    <h2 style="text-align:center;">Welcome To Your Profile</h2>
+    <h2 style="text-align:center;">Welcome To Your Profile</h2><br>
     <form action="DOMAINLOGIC/updateinfo.dom.php" method="post" enctype="multipart/form-data">
         <div id="infoProfile" class="border p-4" style="border-radius: 15px;">
             <img id="profilepic" class="border" src="<?php echo $_SESSION["profilePicPath"]?>" alt="Your profile pic">   
