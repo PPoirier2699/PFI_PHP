@@ -26,3 +26,15 @@ img#profilepic {
     width: 70%;
     float: right;
 }
+#profilePicChange {    
+    display: none;	
+}
+#profilePicChange + label {
+    text-align: center;
+    cursor: pointer; /* "hand" cursor */
+    background-color: #D24545;
+    padding: 5%;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
