@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . "/imageTDG.PHP";
+include_once __DIR__ . "/imageTDG.php";
 
 class Image{
 
@@ -13,6 +13,15 @@ class Image{
    
     public function __construct(){
        
+    }
+
+    //permet de creer une copie dune image a partir d'un array
+    private function makeImage($array) {
+        $this->id = $array["id"];
+        $this->url = $array["url"];
+        $this->albumID = $array["albumID"];
+        $this->description = $array["description"];
+        $this->creationTime = $array["creationTime"];
     }
 
 
@@ -64,7 +73,7 @@ class Image{
         Quality of Life methods (Dans la langue de shakespear (ou QOLM pour les intimes))
     */
     public function load_image($id){
-        $TDG = new ImageTDG();
+        $TDG = ImageTDG::getInstance();
         $res = $TDG->get_by_id($id);
 
         if(!$res)
@@ -74,13 +83,26 @@ class Image{
         }
 
         $this->id = $res['id'];
-        $this->email = $res['url'];
-        $this->username = $res['albumID'];
-        $this->password = $res['description'];
-        $this->profilPicture = $res['creationTime'];
+        $this->url = $res['url'];
+        $this->albumID = $res['albumID'];
+        $this->description = $res['description'];
+        $this->creationTime = $res['creationTime'];
         
         $TDG = null;
         return true;
+    }
+    public function load_all_image_by_album($id) {
+        $TDG = ImageTDG::getInstance();
+        $res = $TDG->get_by_albumID($id);
+
+        if(!$res)
+        {
+            $TDG = null;
+            return false;
+        }
+        var_dump($res);
+        $TDG = null;
+        return $res;
     }
  
 }

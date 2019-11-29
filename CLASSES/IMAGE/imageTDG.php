@@ -10,7 +10,7 @@ class ImageTDG extends DBAO{
     public function __construct(){
         
         $this->tableName = "images";
-        
+        parent::__construct();
     }
     public static function getInstance()
     {
