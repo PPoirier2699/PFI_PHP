@@ -43,7 +43,7 @@
     }
 
     if(empty($pw) || !Validator::validate_password($pw)){
-      header("Location: ../myProfile.php?ErrorMSG=Passwords doesnt match");
+      header("Location: ../myProfile.php?ErrorMSG=Password is not valid");
       die();
     }
 
