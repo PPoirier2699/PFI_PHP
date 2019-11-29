@@ -148,7 +148,6 @@ class User
         //add user to DB
         $TDG = UserTDG::getInstance();
         $res = $TDG->add_user($email, $username, password_hash($pw, PASSWORD_DEFAULT), $url);
-        $this->Login($email,$pw);
         $TDG = null;
         return true;
     }
