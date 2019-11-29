@@ -20,6 +20,6 @@
         header("Location: ../register.php?ErrorMSG=Register%20error%20");
         die();
     }             
-    header("Location: ../mainPage.php");
+    header("Location: ../login.php");
     die();
 ?>
