@@ -38,7 +38,6 @@
         session_start();
         login($uID, $uEmail, $uName);
         return true;
-        
     }
     else {
       $_SESSION["timeOut"] = time() + (60 * 15);
