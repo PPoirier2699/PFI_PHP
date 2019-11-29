@@ -234,6 +234,25 @@ class UserTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+    public function update_picture($email, $url) {
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "UPDATE $tableName SET profilePictureURL=:profilePictureURL WHERE email=:email";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':profilePictureURL', $url);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $resp = true;
+        }        
+        catch(PDOException $e)
+        {
+            $resp = false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
     public function existing_infos($email,$username){
         if(!empty($this->get_by_email($email))){
             header("Location: ../register.php?ErrorMSG=Email%20already%20register!");
