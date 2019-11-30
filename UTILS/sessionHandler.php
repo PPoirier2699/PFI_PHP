@@ -44,8 +44,9 @@
       $_SESSION["timeOut"] = time() + (60 * 15);
       return true;
     }
+    */
   }
-  */
+  
   /*
     fonction qui detruit la session (logout dans la langue de shakespear)
   *//*
