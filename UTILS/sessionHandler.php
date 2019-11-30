@@ -23,13 +23,14 @@
     }
     // si le timeout est arrivé, la session n'est plus valide
     // on dois donc detruire la session
-    if(time() >= $_SESSION["timeOut"]){
-        end_session();
-        return false;
-    }
+    //if(time() >= $_SESSION["timeOut"]){
+    //    end_session();
+    //    return false;
+    //}
     // Si la Session est active depuis plus de 30 mins,
     // on change son PHP_sessionID
     // peux aussi etre substituer par session_regenerate_id();
+    /*
     if(time() - $_SESSION["innitTimeStamp"] > (60 * 30)){
         $uID = $_SESSION["userID"];
         $uEmail = $_SESSION["userEmail"];
@@ -44,12 +45,14 @@
       return true;
     }
   }
+  */
   /*
     fonction qui detruit la session (logout dans la langue de shakespear)
-  */
+  *//*
   function end_session(){
     $_SESSION = array();
     unset($_COOKIE["PHPSESSID"]);
     session_destroy();
   }
+  */
 ?>
