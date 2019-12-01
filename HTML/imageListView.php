@@ -2,18 +2,18 @@
 
   <section class="jumbotron text-center">
     <div class="container">
-      <h1>Album example</h1>
+      <h1><?php echo $_SESSION["currentAlbumTitle"];?></h1>
     </div>
   </section>
 
-  <div class="album py-5 bg-light">
+  <div class="albucurrentAlbumTitlem py-5 bg-light">
     <div class="container">
 
       <div class="row">
 
       <?php
 
-        foreach($_SESSION["currentAlbum"] as $key => $value){
+        foreach($_SESSION["currentAlbumImage"] as $key => $value){
             $_SESSION["temp"] = $value;
             ?>
             <div class="col-md-4">
@@ -26,7 +26,7 @@
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
-                <small class="text-muted"><?php echo $_SESSION["temp"]["creationTime"]?></small>
+                <small class="text-muted"><?php echo $_SESSION["temp"]["creationTime "]?></small>
               </div>
             </div>
           </div>
