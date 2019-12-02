@@ -202,4 +202,9 @@ class AlbumTDG extends DBAO{
             }                                 
         }      
     }
+    public function display_Message($albumNewCount,$res){
+        if($albumNewCount > count($res)){
+            echo "<div class='container w-75 p-3 mt-5' style='position: relative;float: left'><h6 style='position: absolute; left: 0;'>No more albums</h6></div>";
+        }
+    }
 }
