@@ -207,11 +207,13 @@ class AlbumTDG extends DBAO{
             echo "<div class='container w-75 p-3 mt-5' style='position: relative;float: left'><h6 style='position: absolute; left: 0;'>No more albums</h6></div>";
         }
     }
-    public function search_album($like){
+    public function search_album($like,$newAlbumCount){
         
         try{
             $conn = $this->connect();
-            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE title like :title";
+            $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url
+            FROM albums a inner join images i on a.id=i.albumID
+            WHERE title like :title limit $newAlbumCount";
             $stmt = $conn->prepare($query);
             $like = '%'.$like.'%';
             $stmt->bindParam(':title', $like);
@@ -226,5 +228,19 @@ class AlbumTDG extends DBAO{
         //fermeture de connection PDO
         $conn = null;
         return $result;
+    }
+    public function display_album_search($res){
+        if(empty($res)){
+            echo "<h4>No albums corresponding to the research!</h4>";
+        }
+        else{
+            foreach($res as $results){
+                echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='HTML/imageListView.php?albumID=" . $results['id'] . "'>" . $results['title'] . "</a></h5>";
+                echo "<button href='HTML/imageListView.php?albumID='" . $results['id'] ."' class='btn btn-primary'style='float: right'>View album</button>";         
+                echo "<p class='lead'>" . $results['description'] . "</p>";
+                echo "<p class='lead'>" . $results['creationTime'] . "</p>";
+                echo "<br>";
+            }
+        }
     }
 }
