@@ -30,11 +30,19 @@ else{
                 }      
                 ?>
             </ul>
+            
+            <div class="navbar-nav ml-auto" style="float: right">
+                <form class="form-inline my-2 my-lg-0" action="searchResult.php">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
                     <a class="nav-link" href="mainPage.php"><img src="IMG/home.png" height="30px"></a>
                 </li>                
             </ul>
+            
         </nav> 
     </div>
 </div>
