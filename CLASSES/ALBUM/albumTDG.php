@@ -207,4 +207,24 @@ class AlbumTDG extends DBAO{
             echo "<div class='container w-75 p-3 mt-5' style='position: relative;float: left'><h6 style='position: absolute; left: 0;'>No more albums</h6></div>";
         }
     }
+    public function search_album($like){
+        
+        try{
+            $conn = $this->connect();
+            $query = "SELECT id, title, authorID, description, creationTime FROM albums WHERE title like :title";
+            $stmt = $conn->prepare($query);
+            $like = '%'.$like.'%';
+            $stmt->bindParam(':title', $like);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $result;
+    }
 }
