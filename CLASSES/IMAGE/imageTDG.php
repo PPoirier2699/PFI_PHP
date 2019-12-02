@@ -185,4 +185,24 @@ class ImageTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+    public function search_image($like){
+        
+        try{
+            $conn = $this->connect();
+            $query = "SELECT id, url, albumID, description, creationTime FROM images WHERE description like :descr";
+            $stmt = $conn->prepare($query);
+            $like = '%'.$like.'%';
+            $stmt->bindParam(':descr', $like);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $result;
+    }
 }
