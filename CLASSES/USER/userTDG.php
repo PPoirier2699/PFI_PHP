@@ -264,5 +264,25 @@ class UserTDG extends DBAO{
             die();
         }
     }
+    public function search_user($like){
+        
+        try{
+            $conn = $this->connect();
+            $query = "SELECT id, email, username, profilePictureURL FROM users WHERE username like :userN";
+            $stmt = $conn->prepare($query);
+            $like = '%'.$like.'%';
+            $stmt->bindParam(':userN', $like);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $result;
+    }
 
 }
