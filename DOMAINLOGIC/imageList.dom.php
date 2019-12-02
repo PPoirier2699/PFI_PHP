@@ -14,11 +14,9 @@
     $img = new Image();
     $album = new Album();
 
-    $album->load_album($albumID);
-
-    $_SESSION["currentAlbumTitle"] = $album->get_title();
+    $_SESSION["currentAlbum"] = $album->get_album($albumID);
     //Set la variable de session avec les images de l'album courantes(que lutilisateur a clicke dessus ou autre)
-    $_SESSION["currentAlbumImage"] = $img->load_all_image_by_album($albumID);
+    $_SESSION["currentAlbumImage"] = $img->get_all_image_by_album($albumID);
 
     header("Location: ../imageList.php");
     die();

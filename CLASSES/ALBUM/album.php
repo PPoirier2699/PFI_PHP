@@ -82,6 +82,19 @@ class Album{
         $TDG = null;
         return true;
     }
+
+    public function get_album($id) {
+        $TDG = AlbumTDG::getInstance();
+        $res = $TDG->get_by_id($id);
+
+        if(!$res)
+        {
+            $TDG = null;
+            return false;
+        }
+        $TDG = null;
+        return $res;
+    }
 }
 
 

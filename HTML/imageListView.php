@@ -2,7 +2,7 @@
 
   <section class="jumbotron text-center">
     <div class="container">
-      <h1><?php echo $_SESSION["currentAlbumTitle"];?></h1>
+      <h1><?php echo $_SESSION["currentAlbum"]["title"];?></h1>
     </div>
   </section>
 
@@ -25,18 +25,28 @@
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
                 </div>
-                <small class="text-muted"><?php echo $_SESSION["temp"]["creationTime "]?></small>
+                <small class="text-muted"><?php echo $_SESSION["temp"]["creationTime"]?></small>
               </div>
             </div>
           </div>
         </div>
             <?php
         }
+        ?></div><?php
+        if(validate_session() && $_SESSION["currentAlbum"]["authorID"] == $_SESSION["userID"]) {
+          ?>          
+          <form action="" method="post" enctype="multipart/form-data">
+            <input class="fileinput" type="file" name="addpicture" id="addpicture">
+            <label for="addpicture">Add a picture to the album</label>
+          </form>
+          <?php
+        }
         ?>
         
        
-    </div>
+    
   </div>
 
 </main>

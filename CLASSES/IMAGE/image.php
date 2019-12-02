@@ -91,7 +91,7 @@ class Image{
         $TDG = null;
         return true;
     }
-    public function load_all_image_by_album($id) {
+    public function get_all_image_by_album($id) {
         $TDG = ImageTDG::getInstance();
         $res = $TDG->get_by_albumID($id);
 
