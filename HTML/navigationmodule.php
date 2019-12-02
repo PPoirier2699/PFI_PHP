@@ -19,7 +19,7 @@ else{
 <div class="jumbotron text-center" style="padding: 7em; margin-bottom:0; background-color: #D24545;">
 
     <h2 class="display-4">Final Project</h2>
-    <div class="container">
+    <ul class="container">
         <nav class="navbar navbar-expand-sm navbar-light bg-light shadow" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1;">
             <ul class="navbar-nav">
                 <?php 
@@ -31,12 +31,12 @@ else{
                 ?>
             </ul>
             
-            <div class="navbar-nav ml-auto" style="float: right">
-                <form class="form-inline my-2 my-lg-0" action="searchResult.php">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
+            <ul class="navbar-nav ml-auto" style="float: right">
+                <form class="form-inline my-2 my-lg-0" method="post" action="searchResult.php">
+                    <input class="form-control mr-sm-2" style="width: 500px;"type="text" placeholder="Research" name="search">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
-            </div>
+            </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
                     <a class="nav-link" href="mainPage.php"><img src="IMG/home.png" height="30px"></a>
