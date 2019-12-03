@@ -40,7 +40,11 @@
               <p class="card-text"><?php echo $value["description"]?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
+                <?php
+                if(validate_session() && $album["authorID"] == $_SESSION["userID"]) {
+                ?>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                <?php } ?>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
                 </div>
                 <small class="text-muted"><?php echo $value["creationTime"]?></small>
