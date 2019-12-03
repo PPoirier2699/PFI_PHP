@@ -4,7 +4,7 @@
         <div id="infoProfile" class="border p-4" style="border-radius: 15px;">
             <img id="profilepic" class="border" src="<?php echo $_SESSION["profilePicPath"]?>" alt="Your profile pic">   
 
-            <p style="text-align:center;">** You need to enter your password to change your info</p>
+            <p style="text-align:center;">** You need to enter your password to change your info **</p>
             <div>Username : <input name="username" class="form-control" value='<?php echo $_SESSION["userName"]?>'></div>
             <div>E-Mail : <input name="email" class="form-control" value='<?php echo $_SESSION["userEmail"]?>'></div>
             <div>Password : <input type="password" name="oldpw" class="form-control" ></div>
