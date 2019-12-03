@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . "/imageTDG.php";
+include_once __DIR__ . "/../../UTILS/imageHandler.php";
 
 class Image{
 
