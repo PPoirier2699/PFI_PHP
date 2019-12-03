@@ -100,7 +100,22 @@ class Image{
             $TDG = null;
             return false;
         }
-        var_dump($res);
+        $TDG = null;
+        return $res;
+    }
+    public function add_picture_to_album($image, $albumID, $desc) {
+        $date = date('Y-m-d');
+
+        $url = ImageHandler::FileToImageURL($image);
+
+        $TDG = ImageTDG::getInstance();
+        $res = $TDG->add_image($url, $albumID, $desc, $date);
+
+        if(!$res)
+        {
+            $TDG = null;
+            return false;
+        }
         $TDG = null;
         return $res;
     }
