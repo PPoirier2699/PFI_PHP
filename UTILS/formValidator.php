@@ -4,16 +4,20 @@
         
         static public function validate_email($email)
         {
+            $previousPage = $_SERVER["HTTP_REFERER"];
+
+            //coupe le get pour avoir la page qui a dirige vers ici
+            $previousPage = substr($previousPage, 0, strpos($previousPage,'?'));
             if(empty($email))
             {
-                header('Location: ../register.php?ErrorMSG=Email%20field%20is%20empty!');
+                header('Location: '. $previousPage . '?ErrorMSG=Email%20field%20is%20empty!');
                 die();              
             }
 
             $reg="/^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/";
             if(!preg_match_all($reg, $email))
             {
-                header('Location: ../register.php?ErrorMSG=This%20is%20not%20an%20email%20adress!');
+                header('Location: '. $previousPage . '?ErrorMSG=This%20is%20not%20an%20email%20adress!');
                 die();         
             }
             return false;
@@ -23,7 +27,7 @@
         {
             if(empty($password))
             {
-                header('Location: ../register.php?ErrorMSG=Password%20field%20is%20empty!');
+                header('Location: '. $previousPage . '?ErrorMSG=Password%20field%20is%20empty!');
                 die();       
             }
 

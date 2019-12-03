@@ -6,7 +6,15 @@
 
   $email = $_POST["email"];
   $username = $_POST["username"];
+  $password = $_POST["oldpw"];
 
+  $user = new User();
+  $user->load_user($_SESSION["userEmail"]);
+
+  if (!password_verify($password, $user->get_password())) {
+    header("Location: ../myProfile.php?ErrorMSG=You need to enter your password to change your info");
+    die();
+  }
 
   //verification des parametres
   if(empty($email) || empty($username)){
@@ -25,8 +33,6 @@
   }else{
     $newname = $_SESSION["userName"];
   }
-
-  $user = new User();
 
   $user->update_user_info($_SESSION["userEmail"], $newmail, $newname);
 
