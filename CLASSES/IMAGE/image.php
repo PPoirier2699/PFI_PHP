@@ -105,20 +105,15 @@ class Image{
         return $res;
     }
     public function add_picture_to_album($image, $albumID, $desc) {
-        $date = date('Y-m-d');
+        $date = date("Y-n-j");
 
         $url = ImageHandler::FileToImageURL($image);
 
         $TDG = ImageTDG::getInstance();
-        $res = $TDG->add_image($url, $albumID, $desc, $date);
+        $resp = $TDG->add_image($url, $albumID, $desc, $date);
 
-        if(!$res)
-        {
-            $TDG = null;
-            return false;
-        }
         $TDG = null;
-        return $res;
+        return $resp;
     }
  
 }

@@ -6,10 +6,12 @@
 
     $title = $_POST['title'];
     $authorID = $_SESSION['userID'];
-    $description = $_POST['description'];
-    $creationTime = date("Y-n-j");// 10, 3, 2001
+    $descriptionAlbum = $_POST['descriptionAlbum'];
+    $creationTime = date("Y-n-j");
+    $imageURL = $_FILES['firstImage'];
+    $descriptionImage = $_POST['descriptionImage'];
 
-    if(!$albumTDG->add_album($title, $authorID, $description, $creationTime)){
+    if(!$albumTDG->add_album($title, $authorID, $descriptionAlbum, $creationTime,$imageURL,$descriptionImage)){
         header("Location: ../newAlbum.php?ErrorMSG=New%20album%20error!");
         die();
     }
