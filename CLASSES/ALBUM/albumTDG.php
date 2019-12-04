@@ -119,7 +119,7 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    public function add_album($title, $authorID, $description, $creationTime){
+    public function add_album($title, $authorID, $descriptionAlbum, $creationTime,$newImage,$descriptionImage){
         
         try{
             $conn = $this->connect();
@@ -127,15 +127,22 @@ class AlbumTDG extends DBAO{
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':title', $title);
             $stmt->bindParam(':authorID', $authorID);
-            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':description', $descriptionAlbum);
             $stmt->bindParam(':creationTime', $creationTime);
             $stmt->execute();
-            $resp =  true;
+            $resp = true;
         }
         catch(PDOException $e)
         {
             $resp =  false;
         }
+        include_once __DIR__ . "/../IMAGE/image.php";
+        if($resp){
+            $image = new Image();
+            $image->add_picture_to_album($newImage, $this->get_last_inserted_album_id(),$descriptionImage);
+        }
+        
+           
         //fermeture de connection PDO
         $conn = null;
         return $resp;
@@ -176,7 +183,7 @@ class AlbumTDG extends DBAO{
         try{
             $conn = $this->connect();
             $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url
-            FROM albums a inner join images i on a.id=i.albumID limit $newAlbumCount";
+            FROM albums a inner join images i on a.id=i.albumID group by a.id limit $newAlbumCount";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -243,5 +250,22 @@ class AlbumTDG extends DBAO{
                 echo "<br>";
             }
         }
+    }
+    public function get_last_inserted_album_id(){
+        try{
+            $conn = $this->connect();
+            $query = "SELECT max(id) id from albums";
+            $stmt = $conn->prepare($query);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $res = $stmt->fetch();
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $res['id'];
     }
 }
