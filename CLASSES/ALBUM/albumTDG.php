@@ -182,8 +182,8 @@ class AlbumTDG extends DBAO{
     public function get_top_album($newAlbumCount){
         try{
             $conn = $this->connect();
-            $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url
-            FROM albums a inner join images i on a.id=i.albumID group by a.id limit $newAlbumCount";
+            $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url, u.username
+            FROM albums a inner join images i on a.id=i.albumID inner join users u  group by a.id limit $newAlbumCount";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -201,6 +201,7 @@ class AlbumTDG extends DBAO{
         if(!empty($res)){      
             foreach($res as $info){
                 echo "<div class='container border w-75 p-3 mt-5' style='float: left'>";
+                echo "<p><a style='text-decoration: none; color: black; font-size: 20px;' href=''#>" . $info['username'] . "</a></p>";
                 echo "<p><a style='text-decoration: none; color: black; font-size: 20px;' href='imageList.php?albumID=" . $info['id'] . "'>" . $info['title'] . "</a></p>";
                 echo "<img src='" . $info['url']. "' alt='img' height='100'>";
                 echo "<p class='lead'>Description: " . $info['description'] . "</p>";
