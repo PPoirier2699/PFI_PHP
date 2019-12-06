@@ -1,4 +1,5 @@
 <script src="JS\imageView.js"></script>
+<script src="JS\like.js"></script>
 <?php
     include_once __DIR__ . "/../CLASSES/IMAGE/image.php";
     include_once __DIR__ . "/../CLASSES/ALBUM/album.php";
@@ -34,8 +35,8 @@
         foreach($img as $key => $value){
             ?>
             <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-          <img src="<?php echo $value["url"]?>" class="bd-placeholder-img card-img-top imageModal"  height="100%" alt="<?php echo $value["description"]?>">
+          <div class="card mb-4 shadow-sm" >
+          <img src="<?php echo $value["url"]?>" class="bd-placeholder-img card-img-top imageModal" style='height: 100%;' alt="<?php echo $value["description"]?>">
             <div class="card-body">
               <p class="card-text"><?php echo $value["description"]?></p>
               <div class="d-flex justify-content-between align-items-center">
@@ -45,7 +46,7 @@
                 ?>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 <?php } ?>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
+                  <button type="button" id='<?php echo $value["url"]?>'class="btn btn-sm btn-outline-secondary">Like</button>
                 </div>
                 <small class="text-muted"><?php echo $value["creationTime"]?></small>
               </div>
