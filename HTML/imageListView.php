@@ -3,6 +3,7 @@
 <?php
     include_once __DIR__ . "/../CLASSES/IMAGE/image.php";
     include_once __DIR__ . "/../CLASSES/ALBUM/album.php";
+    include_once __DIR__ . "/../CLASSES/LIKE/like.php";
 
     $albumID;
     if (isset($_GET["albumID"])) {
@@ -14,6 +15,8 @@
 
     $img = new Image();
     $album = new Album();
+    $like = new Like();
+
 
     $album = $album->get_album($albumID);
     //Set la variable de session avec les images de l'album courantes(que lutilisateur a clicke dessus ou autre)
@@ -48,6 +51,7 @@
                 <?php } ?>
                   <button type="button" id='<?php echo $value["url"]?>'class="btn btn-sm btn-outline-secondary">Like</button>
                 </div>
+                <small> <?php echo $like->get_likes(1,'album');?> Likes</small>
                 <small class="text-muted"><?php echo $value["creationTime"]?></small>
               </div>
             </div>
