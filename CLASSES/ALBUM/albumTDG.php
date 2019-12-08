@@ -222,7 +222,7 @@ class AlbumTDG extends DBAO{
             $conn = $this->connect();
             $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url
             FROM albums a inner join images i on a.id=i.albumID
-            WHERE title like :title limit $newAlbumCount";
+            WHERE title like :title group by a.id limit $newAlbumCount";
             $stmt = $conn->prepare($query);
             $like = '%'.$like.'%';
             $stmt->bindParam(':title', $like);
@@ -244,7 +244,7 @@ class AlbumTDG extends DBAO{
         }
         else{
             foreach($res as $results){
-                echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='HTML/imageListView.php?albumID=" . $results['id'] . "'>" . $results['title'] . "</a></h5>";
+                echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='imageList.php?albumID=" . $results['id'] . "'>" . $results['title'] . "</a></h5>";
                 echo "<button href='HTML/imageListView.php?albumID='" . $results['id'] ."' class='btn btn-primary'style='float: right'>View album</button>";         
                 echo "<p class='lead'>" . $results['description'] . "</p>";
                 echo "<p class='lead'>" . $results['creationTime'] . "</p>";
