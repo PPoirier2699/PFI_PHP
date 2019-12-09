@@ -5,8 +5,10 @@
     session_start();
     //load view content
     $module = "imageListView.php";
+    $module2 = "modalView.php";
     $content = array();
     array_push($content, $module);
+    array_push($content, $module2);
     
     //variables used in the loaded module
     $title = "Album";

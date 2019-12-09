@@ -1,7 +1,10 @@
 <script src="JS\imageView.js"></script>
+<script src="JS\like.js"></script>
+<script src='JS/previewImage.js'></script>
 <?php
     include_once __DIR__ . "/../CLASSES/IMAGE/image.php";
     include_once __DIR__ . "/../CLASSES/ALBUM/album.php";
+    include_once __DIR__ . "/../CLASSES/LIKE/like.php";
 
     $albumID;
     if (isset($_GET["albumID"])) {
@@ -13,6 +16,8 @@
 
     $img = new Image();
     $album = new Album();
+    $like = new Like();
+
 
     $album = $album->get_album($albumID);
     //Set la variable de session avec les images de l'album courantes(que lutilisateur a clicke dessus ou autre)
@@ -34,8 +39,8 @@
         foreach($img as $key => $value){
             ?>
             <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-          <img src="<?php echo $value["url"]?>" class="bd-placeholder-img card-img-top imageModal"  height="100%" alt="<?php echo $value["description"]?>">
+          <div class="card mb-4 shadow-sm" >
+          <img src="<?php echo $value["url"]?>" class="bd-placeholder-img card-img-top imageModal" style='height: 100%;' alt="<?php echo $value["description"]?>">
             <div class="card-body">
               <p class="card-text"><?php echo $value["description"]?></p>
               <div class="d-flex justify-content-between align-items-center">
@@ -45,8 +50,9 @@
                 ?>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 <?php } ?>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
+                  <button type="button" id='<?php echo $value["url"]?>'class="btn btn-sm btn-outline-secondary">Like</button>
                 </div>
+                <small> <?php echo $like->get_likes(1,'album');?> Likes</small>
                 <small class="text-muted"><?php echo $value["creationTime"]?></small>
               </div>
             </div>
@@ -56,15 +62,20 @@
         }
         ?></div><?php
         if(validate_session() && $album["authorID"] == $_SESSION["userID"]) {
-          ?>          
-          <form action="DOMAINLOGIC/addImage.dom.php" method="post" enctype="multipart/form-data">
-            <input type="text" style="display:none;" name="albumID" value="<?php echo $albumID; ?>">
-            <input type="text" style="display:none;" name="authorID" value="<?php echo $album["authorID"]; ?>">
-            <input class="fileinput" type="file" name="addpicture" id="addpicture">
-            <label class="btn btn-primary" for="addpicture">Add a picture to the album</label>
-            <textarea class="form-control" name="description" id="descaddimage" cols="30" rows="5" placeholder="Add Your Description Here..."></textarea>
-            <button class="btn btn-primary" type="submit" style="margin-top: 5%; margin-left:30%; margin-right:30%; width:40%;">Submit</button>
-          </form>
+          ?> 
+          <div class="row" style="padding:2.5%; width:100%;position: relative;">
+            <form class="row card-header" style="margin:0 2%; width:50%;" action="DOMAINLOGIC/addImage.dom.php" method="post" enctype="multipart/form-data">
+              <input type="text" style="display:none;" name="albumID" value="<?php echo $albumID; ?>">
+              <input type="text" style="display:none;" name="authorID" value="<?php echo $album["authorID"]; ?>">
+              <input class="fileinput" type="file" name="addpicture" id="addpicture" onchange="readURL(this);">
+              <label class="btn btn-primary" for="addpicture">Add a picture to the album</label>
+              <textarea class="form-control" name="description" id="descaddimage" cols="30" rows="5" placeholder="Add Your Description Here..."></textarea>
+              <button class="btn btn-primary" type="submit" style="margin-top: 5%; margin-left:30%; margin-right:30%; width:40%;">Submit</button>
+            </form>
+            <div class="col" style="width:50%; padding:1%; margin:0 2%; position:relative;">
+              <img style="position: absolute; top: 0; bottom: 0; margin: auto;" class="bd-placeholder-img card-img-top imageModal" id="imageView" src="IMG/preview.png" alt='Image'>
+            </div>
+          </div>
           <?php
         }
         ?>
@@ -74,16 +85,3 @@
   </div>
 
 </main>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- The Close Button -->
-  <span class="close">&times;</span>
-
-  <!-- Modal Content (The Image) -->
-  <img class="modal-content" id="img01">
-
-  <!-- Modal Caption (Image Text) -->
-  <div id="caption"></div>
-</div>

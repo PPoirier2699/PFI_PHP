@@ -4,9 +4,12 @@ function readURL(input) {
   
         reader.onload = function (e) {
             $('#imageView')
-                .attr('src', e.target.result)
-                .height(70)
-                .css('display', 'inline-block');
+                .attr('src', e.target.result);
+
+            $('#imageView').css({
+                'display' : 'inline-block'
+
+            });
                 
         };
   
