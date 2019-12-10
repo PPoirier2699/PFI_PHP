@@ -42,6 +42,18 @@ class Like{
         $TDG = LikeTDG::getInstance();
         return $TDG->count_likes($objectId,$objectType);
     }
+    public function add_like($objectID,$objectType,$userID){
+        $TDG = LikeTDG::getInstance();
+        $TDG->new_like($objectID,$objectType,$userID);
+    }
+    public function remove_like($objectID,$objectType,$userID){
+        $TDG = LikeTDG::getInstance();
+        $TDG->remove_like($objectID,$objectType,$userID);
+    }
+    public function already_liked($objectID,$objectType,$userID){
+        $TDG = LikeTDG::getInstance();
+        return $TDG->already_liked($objectID,$objectType,$userID);
+    }
 }
 
 

@@ -69,14 +69,14 @@ class LikeTDG extends DBAO{
     }
 
 
-    public function count_likes($objectId,$objectType){
+    public function count_likes($objectID,$objectType){
         
         try{
             $conn = $this->connect();
             $tableName = $this->tableName;
             $query = "SELECT Count(userID) number from $tableName WHERE objectID=:objectID and objectType=:objectType";
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':objectID', $objectId);
+            $stmt->bindParam(':objectID', $objectID);
             $stmt->bindParam(':objectType', $objectType);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -90,5 +90,75 @@ class LikeTDG extends DBAO{
         //fermeture de connection PDO
         $conn = null;
         return $result['number'];
+    }
+    public function new_like($objectID,$objectType,$userID){
+
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "insert into $tableName (objectID, objectType, userID) values (:objectID, :objectType, :userID)";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':objectID', $objectID);
+            $stmt->bindParam(':objectType', $objectType);
+            $stmt->bindParam(':userID', $userID);
+            $stmt->execute();
+            $resp = true;
+        }
+
+        //error catch and msg display
+        catch(PDOException $e)
+        {
+            $resp = false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
+    public function remove_like($objectID,$objectType,$userID){
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "DELETE from $tableName WHERE objectID=:objectID and objectType=:objectType and userID=:userID";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':objectID', $objectID);
+            $stmt->bindParam(':objectType', $objectType);
+            $stmt->bindParam(':userID', $userID);
+            $stmt->execute();
+            $resp = true;
+        }
+
+        //error catch and msg display
+        catch(PDOException $e)
+        {
+            $resp = false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
+    public function already_liked($objectID,$objectType,$userID){
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "SELECT * from $tableName WHERE objectID=:objectID and objectType=:objectType and userID=:userID";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':objectID', $objectID);
+            $stmt->bindParam(':objectType', $objectType);
+            $stmt->bindParam(':userID', $userID);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch();
+        }
+        
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        if(!empty($result)){
+            return true;
+        }
+        return false;
     }
 }
