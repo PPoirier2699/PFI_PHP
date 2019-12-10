@@ -68,8 +68,8 @@
               <input type="text" style="display:none;" name="albumID" value="<?php echo $albumID; ?>">
               <input type="text" style="display:none;" name="authorID" value="<?php echo $album["authorID"]; ?>">
               <input class="fileinput" type="file" name="addpicture" id="addpicture" onchange="readURL(this);">
-              <label class="btn btn-primary" for="addpicture">Add a picture to the album</label>
-              <textarea class="form-control" name="description" id="descaddimage" cols="30" rows="5" placeholder="Add Your Description Here..."></textarea>
+              <label class="btn btn-primary" for="addpicture" style="margin-top: 5%; margin-left:30%; margin-right:30%; width: 100%;">Add image +</label>
+              <textarea class="form-control mt-3" name="description" id="descaddimage" cols="30" rows="5" placeholder="Image description"></textarea>
               <button class="btn btn-primary" type="submit" style="margin-top: 5%; margin-left:30%; margin-right:30%; width:40%;">Submit</button>
             </form>
             <div class="col" style="width:50%; padding:1%; margin:0 2%; position:relative;">
