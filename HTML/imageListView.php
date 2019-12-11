@@ -40,7 +40,7 @@
 						?>
 						<div class="col-md-4">
 					<div class="card mb-4 shadow-sm" >
-					<img src="<?php echo $value["url"]?>" class="bd-placeholder-img card-img-top imageModal" style='height: 100%;' alt="<?php echo $value["description"]?>">
+					<img title="<?php echo $value["id"]?>" src="<?php echo $value["url"]?>" class="bd-placeholder-img card-img-top imageModal" style='height: 100%;' alt="<?php echo $value["description"]?>">
 						<div class="card-body">
 							<p class="card-text"><?php echo $value["description"]?></p>
 							<div class="d-flex justify-content-between align-items-center">
