@@ -17,7 +17,7 @@ if($objectType == "image") {
     foreach($myComments as $key => $value){
     ?>
     <div class="comment">
-        <div style="float: left;font-weight: bold;"><?php echo $user->get_user($value["authorID"])["username"];?></div>
+        <div style="float: left;font-weight: bold;"><?php echo $user->get_user_by_id($value["authorID"])["username"];?></div>
         <div style="float: right;font-weight: bold;"><?php echo $value["creationTime"]?></div><br><br>
 
         <div class="commentText" style="overflow-wrap: break-word;">
