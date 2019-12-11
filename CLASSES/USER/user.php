@@ -230,4 +230,8 @@ class User
         $TDG = null;
         return $res;
     }
+    public function get_user_by_id($id){
+        $TDG = new UserTDG;
+        return $TDG->get_by_id($id);
+    }
 }
