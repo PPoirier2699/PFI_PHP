@@ -81,6 +81,22 @@ class Comment{
         $TDG = null;
         return true;
     }
+    public function add_comment($objectType, $objectID, $content, $authorID) {
+        $date = date("Y-n-j g:i:s");;
+
+        $TDG = CommentTDG::getInstance();
+        $resp = $TDG->add_comment($objectType, $objectID, $date, $content, $authorID);
+
+        $TDG = null;
+        return $resp;
+    }
+    public function get_comment_by_id($id) {
+        $TDG = CommentTDG::getInstance();
+        $resp = $TDG->get_by_objectID($id);
+
+        $TDG = null;
+        return $resp;
+    }
 }
 
 
