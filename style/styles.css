@@ -74,15 +74,55 @@ img#profilepic {
   }
   
   /* Modal Content (Image) */
-  .modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
+  .modal-content{
+    padding-top: 1%;
+    border-radius: 10px;
+    width:70vw;
+    max-height: 60vh;
+    margin:0 15vw;
+    background-color: #000000;
+  }
+  .modal-content > header {
+    text-align: center;
+    color: white;
+    width: 100%;
+  }
+  .modal-image {
+    max-height: 35vh;
+    border-radius: 10px;
+    margin: 0 1vw;
+    max-width: 33vw;
+    width:auto;
+    float: left;
+  }
+  .commentParent {
+    max-height: 35vh;
+    margin-left: 35vw;
+    width: 35vw;
+    margin-top: 1%;
+    padding-left: 10%;
+    padding-right: 1%;
+  }
+  .commentParent:nth-child(3) {
+    max-height: 20vh;
+  }
+  .comment {
+    margin: 0 0 2% 0;
+    border-radius: 10px;
+    padding: 1%;
+    background-color: white;
+  }
+  .comment .commentText {
+    padding: 2% 5%;
+    border-radius: 10px; 
+    width: 90%;
+    margin: -2% 5% 2% 5%;
+    background-color: #ebebeb
   }
   
   /* Caption of Modal Image (Image Text) - Same Width as the Image */
   #caption {
+    overflow-wrap: break-word;
     margin: auto;
     display: block;
     width: 80%;
