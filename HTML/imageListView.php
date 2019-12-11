@@ -31,7 +31,7 @@
 		</div>
 	</section>
 
-	<div class="py-5 bg-light">
+	<div class="py-5 px-5 bg-light">
 			<div class="row">
 
 			<?php
