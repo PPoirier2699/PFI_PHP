@@ -1,7 +1,7 @@
 <?php
 
 include_once __DIR__ . "/userTDG.php";
-
+include_once __DIR__ . "/../../UTILS/formValidator.php";
 class User
 {
 
@@ -163,6 +163,10 @@ class User
     }
     public function update_user_info($email, $newmail, $newname){
         //load user infos
+        $email = Validator::sanitize($email);
+        $newmail = Validator::sanitize($newmail);
+        $newname = Validator::sanitize($newname);
+
         if(!$this->load_user($email)) {
           return false;
         }        
@@ -193,6 +197,11 @@ class User
     */
     public function update_user_pw($email, $oldpw, $pw, $pwv){
         //load user infos
+        $email = Validator::sanitize($email);
+        $oldpw = Validator::sanitize($oldpw);
+        $pw = Validator::sanitize($pw);
+        $pwv = Validator::sanitize($pwv);
+
         if(!$this->load_user($email))
         {
           return false;
@@ -236,6 +245,7 @@ class User
     }
     public function search_user($searchdWord){
         $TDG = UserTDG::getInstance();
+        $searchdWord = Validator::sanitize($searchdWord);
         return $TDG->search_user($searchdWord);
     }
     public function display_user_search($res){
