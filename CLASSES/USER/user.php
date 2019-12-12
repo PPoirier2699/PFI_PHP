@@ -2,6 +2,7 @@
 
 include_once __DIR__ . "/userTDG.php";
 include_once __DIR__ . "/../../UTILS/formValidator.php";
+
 class User
 {
 
@@ -166,7 +167,6 @@ class User
         $email = Validator::sanitize($email);
         $newmail = Validator::sanitize($newmail);
         $newname = Validator::sanitize($newname);
-
         if(!$this->load_user($email)) {
           return false;
         }        
@@ -201,7 +201,6 @@ class User
         $oldpw = Validator::sanitize($oldpw);
         $pw = Validator::sanitize($pw);
         $pwv = Validator::sanitize($pwv);
-
         if(!$this->load_user($email))
         {
           return false;
@@ -254,12 +253,18 @@ class User
         }
         else{            
             foreach($res as $results){
-                echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='#'>" . $results['username'] . "</a></h5>";
+                echo "<h4 class='d-inline'><a style='text-decoration: none; color: black' href='#'>" . $results['username'] . "</a></h4>";
                 echo "<a class='btn btn-primary' style='float: right' href='#'>View user profile</a>";         
-                echo "<img src='" .$results['profilePictureURL'] ."'height='100' class='border p-3 m-3'>";
+                echo "<img src='" .$results['profilePictureURL'] ."'height='100' class='m-3'>";
                 echo "<br>";
             }
             echo "<br><button class='btn btn-light' style='position: absolute; left: 2%; bottom: 5%;' id='moreUsers'>More users</button>";
+        }
+    }
+    public function no_more_users_to_display($userNewCount,$res){
+        if($userNewCount > count($res)){
+            echo "<h6 style='position: absolute; left: 2%; bottom: 5%'>No more users</h6>";
+            echo"<script>$('#moreUsers').remove();</script>";
         }
     }
 }
