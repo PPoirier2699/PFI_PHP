@@ -185,14 +185,16 @@ class ImageTDG extends DBAO{
         $conn = null;
         return $resp;
     }
-    public function search_image($like){
+    public function search_image($searchWord,$imageCount){
         
         try{
             $conn = $this->connect();
-            $query = "SELECT id, url, albumID, description, creationTime FROM images WHERE description like :descr";
+            $query = "SELECT u.username, i.url, a.authorID, a.id albumID, a.title, i.description, i.creationTime
+            FROM images i inner join albums a on a.id = i.albumID inner 
+            join users u on u.id = a.authorID WHERE i.description like :descr limit $imageCount";
             $stmt = $conn->prepare($query);
-            $like = '%'.$like.'%';
-            $stmt->bindParam(':descr', $like);
+            $searchWord = '%'.$searchWord.'%';
+            $stmt->bindParam(':descr', $searchWord);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetchAll();
@@ -205,4 +207,5 @@ class ImageTDG extends DBAO{
         $conn = null;
         return $result;
     }
+    
 }

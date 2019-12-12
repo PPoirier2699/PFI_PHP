@@ -110,14 +110,40 @@ class Image{
         $albumID = Validator::sanitize($albumID);
         $desc = Validator::sanitize($desc);
         $url = ImageHandler::FileToImageURL($image);
-        $TDG = ImageTDG::getInstance();
 
+        $TDG = ImageTDG::getInstance();
         $resp = $TDG->add_image($url, $albumID, $desc, $date);
 
         $TDG = null;
         return $resp;
     }
- 
+    public function search_image($searchWord,$imageCount){
+        $TDG = ImageTDG::getInstance();
+        return $TDG->search_image($searchWord,$imageCount);
+    }
+    public function display_image_search($res){
+        if(empty($res)){
+            echo "<h4>No images corresponding to the research!</h4>";
+        }
+        else{            
+            foreach($res as $results){
+                echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='#'>Author: " . $results['username'] . "</a></h5><br>";
+                echo "<img src='" .$results['url'] ."'height='200' class='mt-3 mb-3 imageModal'>";
+                echo "<a class='btn btn-primary' style='float: right' href='imageList?albumID=" . $results['albumID'] ."'>View full album</a>";         
+                echo "<p class='lead'>" . $results['description'] . "</p>";
+                echo "<p class='lead'>Album: " . $results['title'] . "</p>";
+                echo "<p class='lead'>" . $results['creationTime'] . "</p>";
+                echo "<br>";
+            }
+            echo "<br><button class='btn btn-light' style='position: absolute; left: 2%; bottom: 2%;' id='moreImages'>More images</button>";
+        }
+    }
+    public function no_more_images_to_display($imageNewCount,$res){
+        if($imageNewCount > count($res)){
+            echo "<h6 style='position: absolute; left: 2%; bottom: 2%'>No more images</h6>";
+            echo"<script>$('#moreImages').remove();</script>";
+        }
+    }
 }
 
 
