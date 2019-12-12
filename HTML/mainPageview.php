@@ -2,12 +2,12 @@
 <h2>Main page content</h2>
 <div id="albums">
 <?php
-    include_once "./CLASSES/ALBUM/albumTDG.php";
+    include_once "./CLASSES/ALBUM/album.php";
 
-    $albumTDG = AlbumTDG::getInstance();
+    $album = new Album;
     
-    $res = $albumTDG->get_top_album(4);
-    $albumTDG->display_albums($res);
+    $res = $album->get_top_album(4);
+    $album->display_albums($res);
 
 ?>
 </div>
