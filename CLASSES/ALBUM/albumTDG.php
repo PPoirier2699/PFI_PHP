@@ -197,8 +197,7 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    
-    public function search_album($like,$newAlbumCount){
+    public function search_album($searchWord,$newAlbumCount){
         
         try{
             $conn = $this->connect();
@@ -206,8 +205,8 @@ class AlbumTDG extends DBAO{
             FROM albums a inner join images i on a.id=i.albumID
             WHERE title like :title group by a.id limit $newAlbumCount";
             $stmt = $conn->prepare($query);
-            $like = '%'.$like.'%';
-            $stmt->bindParam(':title', $like);
+            $searchWord = '%'.$searchWord.'%';
+            $stmt->bindParam(':title', $searchWord);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetchAll();
@@ -220,7 +219,6 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    
     public function get_last_inserted_album_id(){
         try{
             $conn = $this->connect();

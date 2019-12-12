@@ -1,7 +1,6 @@
 <?php
 
 include_once __DIR__ . "/albumTDG.php";
-include_once __DIR__ . "/../../UTILS/formValidator.php";
 
 class Album{
 
@@ -99,7 +98,6 @@ class Album{
     public function get_top_album($newAlbumCount){
         
         $TDG = AlbumTDG::getInstance();
-        $newAlbumCount = Validator::sanitize($newAlbumCount);
         return $TDG->get_top_album($newAlbumCount);
     }
     public function display_albums($res){
@@ -117,15 +115,12 @@ class Album{
     }
     public function no_more_albums_to_display($albumNewCount,$res){
         if($albumNewCount > count($res)){
-            echo "<h6 style='position: absolute; left: 3%; bottom: 5%'>No more albums</h6>";
+            echo "<h6 style='position: absolute; bottom: 5%;'>No more albums</h6>";
             echo"<script>$('#moreAlbums').remove();</script>";
         }
     }
     public function search_album($like,$newAlbumCount){
         $TDG = AlbumTDG::getInstance();
-        $like = Validator::sanitize($like);
-        $newAlbumCount = Validator::sanitize($newAlbumCount);
-
         return $TDG->search_album($like,$newAlbumCount);
     }
     public function display_album_search($res){
