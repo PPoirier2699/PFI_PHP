@@ -1,20 +1,32 @@
+<script src="JS\loadSearchAlbum.js"></script>
 <?php
-  include_once "./CLASSES/ALBUM/albumTDG.php";
-  include_once "./CLASSES/IMAGE/imageTDG.php";
-  include_once "./CLASSES/USER/userTDG.php";
 
-    
-  $albumTDG = AlbumTDG::getInstance();
-  $imgTDG = ImageTDG::getInstance();
-  $userTDG = UserTDG::getInstance();
-  $searchdWord = $_POST['search'];
+include_once "./CLASSES/ALBUM/album.php";
+include_once "./CLASSES/IMAGE/image.php";
+include_once "./CLASSES/USER/user.php";
 
-  $albums = $albumTDG->search_album($searchdWord,4);
-  $images = $imgTDG->search_image($searchdWord);
-  $users = $userTDG->search_user($searchdWord);
 
-  echo "<h1>ALBUMS</h1><br><hr>";
-  $albumTDG->display_album_search($albums);
-  echo"<h1>IMAGES</h1>";
-  echo"<h1>USERS</h1>";
+$album = new Album;
+$img = new Image;
+$user = new User;
+$searchdWord = $_POST['search'];
+
+$albumsRes = $album->search_album($searchdWord,3);
+//$images = $imgTDG->search_image($searchdWord);
+$usersRes = $user->search_user($searchdWord);
 ?>
+<input id="searchWord" style="display: none;" value="<?php echo $_POST['search']?>">
+<h1>ALBUMS</h1><br><hr><br>
+<div id="albums" class="p-4 border" style="position: relative;">
+	<?php $album->display_album_search($albumsRes); ?>	
+</div><br>
+<h1>IMAGES</h1><br><hr><br>
+<div id="images" class="p-4 border" style="position: relative;">
+	<!--<?php $album->display_album_search($albumsRes); ?>-->
+</div><br>
+<h1>USERS</h1><br><hr><br>
+<div id="users" class="p-4 border" style="position: relative;">
+	<?php $user->display_user_search($usersRes); ?>
+</div><br>
+
+
