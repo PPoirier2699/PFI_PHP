@@ -13,6 +13,12 @@ if($objectType == "image") {
     $user = new User();
 
     $myComments = $comment->get_comment_by_id($objectID);
+    
+    if(empty($myComments)) {
+      ?>
+        <div class="comment">There is no comment yet</div>
+      <?php
+    }
     $myComments = array_reverse($myComments);
     foreach($myComments as $key => $value){
     ?>
