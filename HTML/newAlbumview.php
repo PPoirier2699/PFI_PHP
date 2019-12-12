@@ -21,7 +21,7 @@
         <button class="btn btn-primary" type="submit" style="margin-top: 5%; margin-left:30%; margin-right:30%; width:50%;">Submit</button>    
     </form>
     <div class="col" style="width:50%; padding:1%; margin:0 2%; position:relative;">
-        <img style="position: absolute; top: 0; bottom: 0; margin: auto;" class="bd-placeholder-img card-img-top imageModal" id="imageView" src="IMG/preview.png" alt='Image'>
+        <img style="position: absolute; top: 0; bottom: 0; margin: auto;" class="bd-placeholder-img card-img-top" id="imageView" src="IMG/preview.png" alt='Image'>
     </div>
 </div>
 
