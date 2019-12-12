@@ -2,6 +2,7 @@
 
 include_once __DIR__ . "/imageTDG.php";
 include_once __DIR__ . "/../../UTILS/imageHandler.php";
+include_once __DIR__ . "/../../UTILS/formValidator.php";
 
 class Image{
 
@@ -106,10 +107,11 @@ class Image{
     }
     public function add_picture_to_album($image, $albumID, $desc) {
         $date = date("Y-n-j");
-
+        $albumID = Validator::sanitize($albumID);
+        $desc = Validator::sanitize($desc);
         $url = ImageHandler::FileToImageURL($image);
-
         $TDG = ImageTDG::getInstance();
+
         $resp = $TDG->add_image($url, $albumID, $desc, $date);
 
         $TDG = null;
