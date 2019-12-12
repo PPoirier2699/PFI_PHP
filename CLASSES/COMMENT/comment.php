@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . "/commentTDG.php";
+include_once __DIR__ . "/../../UTILS/formValidator.php";
 
 class Comment{
 
@@ -83,6 +84,10 @@ class Comment{
     }
     public function add_comment($objectType, $objectID, $content, $authorID) {
         $date = date("Y-n-j g:i:s");;
+        $objectType = Validator::($objectType);
+        $objectID = Validator::sanitize($objectID);
+        $content = Validator::sanitize($content);
+        $authorID = Validator::sanitize($authorID);
 
         $TDG = CommentTDG::getInstance();
         $resp = $TDG->add_comment($objectType, $objectID, $date, $content, $authorID);
