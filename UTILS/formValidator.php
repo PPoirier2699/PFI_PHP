@@ -68,6 +68,13 @@
             //si toutes les conditions de fail ne sont pas satisfaite, retourn true (le password est valide)
             return true;
         }
+        public static function sanitize($input){
+            $input = stripslashes($input);
+            $input = htmlentities($input);
+            $input = strip_tags($input);
+            return $input;
+        }
+
     }
 
 
