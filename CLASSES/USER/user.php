@@ -234,4 +234,22 @@ class User
         $TDG = new UserTDG;
         return $TDG->get_by_id($id);
     }
+    public function search_user($searchdWord){
+        $TDG = UserTDG::getInstance();
+        return $TDG->search_user($searchdWord);
+    }
+    public function display_user_search($res){
+        if(empty($res)){
+            echo "<h4>No users corresponding to the research!</h4>";
+        }
+        else{            
+            foreach($res as $results){
+                echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='#'>" . $results['username'] . "</a></h5>";
+                echo "<a class='btn btn-primary' style='float: right' href='#'>View user profile</a>";         
+                echo "<img src='" .$results['profilePictureURL'] ."'height='100' class='border p-3 m-3'>";
+                echo "<br>";
+            }
+            echo "<br><button class='btn btn-light' style='position: absolute; left: 2%; bottom: 5%;' id='moreUsers'>More users</button>";
+        }
+    }
 }

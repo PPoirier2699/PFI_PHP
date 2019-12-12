@@ -264,14 +264,14 @@ class UserTDG extends DBAO{
             die();
         }
     }
-    public function search_user($like){
+    public function search_user($searchWord){
         
         try{
             $conn = $this->connect();
-            $query = "SELECT id, email, username, profilePictureURL FROM users WHERE username like :userN";
+            $query = "SELECT id, email, username, profilePictureURL FROM users WHERE username like :searchWord";
             $stmt = $conn->prepare($query);
-            $like = '%'.$like.'%';
-            $stmt->bindParam(':userN', $like);
+            $searchWord = '%'.$searchWord.'%';
+            $stmt->bindParam(':searchWord', $searchWord);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $result = $stmt->fetchAll();
