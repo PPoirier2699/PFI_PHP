@@ -102,6 +102,20 @@ class Comment{
         $TDG = null;
         return $resp;
     }
+    public function edit_comment($id, $content) {
+        $TDG = CommentTDG::getInstance();
+        $resp = $TDG->edit_comment($id, $content);
+
+        $TDG = null;
+        return $resp;
+    }
+    public function delete_comment($id) {
+        $TDG = CommentTDG::getInstance();
+        $resp = $TDG->delete_comment($id);
+
+        $TDG = null;
+        return $resp;
+    }
 }
 
 
