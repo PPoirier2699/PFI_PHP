@@ -207,5 +207,43 @@ class ImageTDG extends DBAO{
         $conn = null;
         return $result;
     }
-    
+    public function edit_image($objectID, $description) {
+        try{
+            $tableName = $this->tableName;
+            $conn = $this->connect();
+            $query = "update $tableName set description = :description where id = :id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $objectID);
+            $stmt->bindParam(':description', $description);
+            $stmt->execute();
+            $resp =  true;
+        }
+        
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
+    public function delete_image($objectID) {
+        try{
+            $tableName = $this->tableName;
+            $conn = $this->connect();
+            $query = "delete from $tableName where id = :id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $objectID);
+            $stmt->execute();
+            $resp =  true;
+        }
+        
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
 }
