@@ -144,6 +144,20 @@ class Image{
             echo"<script>$('#moreImages').remove();</script>";
         }
     }
+    public function edit_image($id, $description) {
+        $TDG = ImageTDG::getInstance();
+        $resp = $TDG->edit_image($id, $description);
+
+        $TDG = null;
+        return $resp;
+    }
+    public function delete_image($id) {
+        $TDG = ImageTDG::getInstance();
+        $resp = $TDG->delete_image($id);
+
+        $TDG = null;
+        return $resp;
+    }
 }
 
 
