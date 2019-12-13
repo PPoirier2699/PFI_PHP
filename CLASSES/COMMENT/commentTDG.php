@@ -152,4 +152,43 @@ class CommentTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+    public function edit_comment($objectID, $content) {
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "update $tableName set content = :content where id = :id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $objectID);
+            $stmt->bindParam(':content', $content);
+            $stmt->execute();
+            $resp =  true;
+        }
+        
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
+    public function delete_comment($objectID) {
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "delete from $tableName where id = :id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $objectID);
+            $stmt->execute();
+            $resp =  true;
+        }
+        
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
 }
