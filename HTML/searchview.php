@@ -19,7 +19,20 @@ $usersRes = $user->search_user($searchdWord,3);
 <input id="searchWord" style="display: none;" value="<?php echo $_POST['search']?>">
 <h1>ALBUMS</h1><br><hr><br>
 <div id="albums" class="p-4 border" style="position: relative;">
-	<?php $album->display_album_search($albumsRes); ?>	
+	<?php if(empty($albumsRes)){ ?>
+		<h4>No albums corresponding to the research!</h4>
+	<?php }
+	else{            
+		foreach($albumsRes as $results){ ?>
+			<h5 class='d-inline'><a style='text-decoration: none; color: black' href='imageList.php?albumID=<?php echo $results['id'] ?>'><?php echo $results['title']?></a></h5>
+			<a class='btn btn-primary' style='float: right' href='imageList.php?albumID=<?php echo $results['id'] ?>'>View album</a>       
+			<p class='lead'><?php echo $results['description'] ?></p>
+			<p class='lead'><?php echo $results['creationTime'] ?></p>
+			<br>
+		<?php } ?>
+		<br><button class='btn btn-light' style='position: absolute; left: 2%; bottom: 5%;' id='moreAlbums'>More albums</button>";
+	<?php } ?>
+		
 	<div id="message"></div>
 </div><br>
 <h1>IMAGES</h1><br><hr><br>
