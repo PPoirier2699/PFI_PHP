@@ -28,6 +28,7 @@
 	<section class="jumbotron text-center">
 		<div class="container">
 			<h1><?php echo $album["title"];?></h1>
+			<input id="currentAlbumID" value="<?php echo $album["id"];?>" type="text" style="display:none;">
 		</div>
 	</section>
 
@@ -45,13 +46,16 @@
 							<p class="card-text"><?php echo $value["description"]?></p>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-								<?php
-								if(validate_session() && $album["authorID"] == $_SESSION["userID"]) {
-								?>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-								<?php } ?>
-									<button type="button" id="IMG<?php echo $value["id"]?>" 
+								<?php if(validate_session() && $album["authorID"] == $_SESSION["userID"]) { ?>
+									<button value="<?php echo $value['id']?>" onClick="edit_button_click(this, 'image');" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+									<button value="<?php echo $value['id']?>" onClick="deleteFunc(<?php echo $value['id']?>, 'image');" type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+								<?php }
+								if(validate_session()) { ?>
+									<button onClick="checkLike('IMG'+<?php echo $value['id']?>, 'image');"type="button" id="IMG<?php echo $value["id"]?>" 
 									class="btn btn-sm <?php if(!$like->already_liked($value['id'],'image',$_SESSION['userID'])){echo "btn-outline-secondary";}else{echo "btn-primary";}?>">Like</button>
+								<?php } ?>
+								
+
 								</div>
 								<small id="<?php echo $value['id']?>"> <?php echo $like->get_likes($value['id'],'image');?> Likes</small>
 								<small class="text-muted"><?php echo $value["creationTime"]?></small>
