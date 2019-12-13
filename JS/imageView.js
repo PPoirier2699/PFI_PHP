@@ -16,6 +16,11 @@ $(document).ready(function(){
       modalImg.attr('src', newSrc);      
 
       load_comment(commentCount, id, type);
+
+      span.onclick = function() {
+        modal.style.display = "none";
+        commentCount = 5;
+      }
   });
   $("#addCommentButton").click(function() {
     var content = $('#contentComment').val();
@@ -33,10 +38,7 @@ $(document).ready(function(){
   var span = document.getElementsByClassName("close")[0];
   
   // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-    commentCount = 5;
-  }
+
 
   
 });
@@ -73,6 +75,8 @@ function deleteFunc(myId, objectType) {
     if (objectType == 'comment') {
       load_comment(commentCount, id, type);
     } else if (objectType == 'image') {
+      location.reload();
+    } else if (objectType == 'album') {
       location.reload();
     }
       
