@@ -182,7 +182,7 @@ class AlbumTDG extends DBAO{
     public function get_top_album($newAlbumCount){
         try{
             $conn = $this->connect();
-            $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url, u.username
+            $query = "SELECT a.id, a.title, a.description, a.creationTime, i.url, u.username, u.id userID
             FROM albums a inner join images i on a.id=i.albumID inner join users u  group by a.id limit $newAlbumCount";
             $stmt = $conn->prepare($query);
             $stmt->execute();
