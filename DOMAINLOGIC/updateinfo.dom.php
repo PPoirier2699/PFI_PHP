@@ -1,6 +1,6 @@
 <?php
-  include "../CLASSES/USER/user.php";
-  include "../UTILS/formValidator.php";
+  include_once "../CLASSES/USER/user.php";
+  include_once "../UTILS/formValidator.php";
   
   session_start();
 
