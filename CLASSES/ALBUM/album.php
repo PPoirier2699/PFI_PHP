@@ -110,6 +110,18 @@ class Album{
         $TDG = AlbumTDG::getInstance();
         return $TDG->search_album($like,$newAlbumCount);
     }
+    public function delete_album($id) {
+        $TDG = AlbumTDG::getInstance();
+        $res = $TDG->delete_album($id);
+
+        if(!$res)
+        {
+            $TDG = null;
+            return false;
+        }
+        $TDG = null;
+        return $res;
+    }
 }
 
 
