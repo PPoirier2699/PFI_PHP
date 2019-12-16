@@ -141,6 +141,10 @@ class Album{
         $TDG = AlbumTDG::getInstance();
         return $TDG->search_album($like,$newAlbumCount);
     }
+    public function search_all_albums($userName){
+        $TDG = AlbumTDG::getInstance();
+        return $TDG->search_all_albums($userName);
+    }
     public function delete_album($id) {
         $TDG = AlbumTDG::getInstance();
         $res = $TDG->delete_album($id);
