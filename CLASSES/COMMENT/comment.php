@@ -84,7 +84,7 @@ class Comment{
     }
     public function add_comment($objectType, $objectID, $content, $authorID) {
         $date = date("Y-n-j g:i:s");;
-        $objectType = Validator::($objectType);
+        $objectType = Validator::sanitize($objectType);
         $objectID = Validator::sanitize($objectID);
         $content = Validator::sanitize($content);
         $authorID = Validator::sanitize($authorID);
