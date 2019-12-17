@@ -18,6 +18,6 @@ function edit(idbalise, myId, objectType) {
   function edit_button_click(balise, element, type) {
     if (!$('#newContent').length){
       $(element).after(`<textarea id="newContent"></textarea>`);
-      $('#newContent').after(`<button onclick="edit('${balise}','${element.value}', '${type}');">submit</button>`);
+      $('#newContent').after("<button onclick='edit(`"+balise+"`,`" +element.value + "`, `" + type +"`);'>submit</button>");
     } 
   }
