@@ -1,28 +1,22 @@
-<?php
-//SERT A DISPLAY LES COMMENTAIRES, ON ARRIVES ICI GRACE AU JS imageView.js
-
+    <?php 
 session_start();
 include_once __DIR__ . "/../CLASSES/COMMENT/comment.php";
 include_once __DIR__ . "/../CLASSES/LIKE/like.php";
 include_once __DIR__ . "/../CLASSES/USER/user.php";
 include_once __DIR__ . "/../UTILS/sessionHandler.php";
 
-$objectID = $_POST["objectID"];
-$objectType = $_POST["objectType"];
-$commentCount = $_POST["commentNewCount"];
-
     $comment = new Comment();
     $user = new User();
     $like = new Like();
-    $myComments = $comment->get_comment($objectID, $objectType);
-    ?><script src="JS/like.js"></script><?php
+    $myComments = $comment->get_comment($_POST['objectID'], 'album');?>   
+    <script src="JS/like.js"></script><?php
     if(empty($myComments)) {
       ?>
         <div class="comment">There is no comment yet</div>
       <?php
     }
     $myComments = array_reverse($myComments);
-    $myComments = array_slice($myComments, 0, $commentCount);
+    $myComments = array_slice($myComments, 0, $_POST["commentNewCount"]);
     foreach($myComments as $key => $value){
     ?>
     <div class="comment">
@@ -34,8 +28,8 @@ $commentCount = $_POST["commentNewCount"];
       </div>
       <div style="margin-left:5%;">
         <?php if(validate_session() && $value["authorID"] == $_SESSION["userID"]) {?>				      
-          <button value="<?php echo $value['id']?>" onClick="edit_button_click('commentForJS', this, 'comment');" type="button" class="btn"><u>Edit</u> </button>
-          <button onClick="deleteFunc('commentForJS', <?php echo $value['id']?>, 'comment');" type="button" class="btn"><u>Delete</u> </button>
+          <button value="<?php echo $value['id']?>" onClick="edit_button_click('<?php echo "Alb".$value['objectID']?>', this, 'comment');" type="button" class="btn"><u>Edit</u> </button>
+          <button onClick="deleteFunc(<?php echo "'Alb".$value['objectID']."'," . $value['id'];?>, 'comment');" type="button" class="btn"><u>Delete</u> </button>
         <?php } ?>
 
         <?php if(validate_session()) {?>
@@ -50,4 +44,3 @@ $commentCount = $_POST["commentNewCount"];
     <?php
     }    
     ?>
-    <button class="btn" onClick="load_more_comment('commentForJS');" style="background-color:white;width:70%; margin:0 15%;">More Comment</button></div>

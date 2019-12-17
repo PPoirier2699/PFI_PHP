@@ -1,4 +1,8 @@
 <script src="JS\imageView.js"></script>
+<script src="JS\add.js"></script>
+<script src="JS\delete.js"></script>
+<script src="JS\edit.js"></script>
+<script src="JS\comment.js"></script>
 <script src="JS\like.js"></script>
 <script src='JS/previewImage.js'></script>
 <?php
@@ -47,8 +51,8 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 								<?php if(validate_session() && $album["authorID"] == $_SESSION["userID"]) { ?>
-									<button value="<?php echo $value['id']?>" onClick="edit_button_click(this, 'image');" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-									<button value="<?php echo $value['id']?>" onClick="deleteFunc(<?php echo $value['id']?>, 'image');" type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+									<button value="<?php echo $value['id']?>" onClick="edit_button_click('currentAlbumID', this, 'image');" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+									<button value="<?php echo $value['id']?>" onClick="deleteFunc('commentForJS',<?php echo $value['id']?>, 'image');" type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
 								<?php }
 								if(validate_session()) { ?>
 									<button onClick="checkLike('IMG'+<?php echo $value['id']?>, 'image');"type="button" id="IMG<?php echo $value["id"]?>" 
