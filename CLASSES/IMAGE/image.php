@@ -129,7 +129,7 @@ class Image{
             foreach($res as $results){
                 echo "<h5 class='d-inline'><a style='text-decoration: none; color: black' href='#'>Author: " . $results['username'] . "</a></h5><br>";
                 echo "<img src='" .$results['url'] ."'height='200' class='mt-3 mb-3 imageModal'>";
-                echo "<a class='btn btn-primary' style='float: right' href='imageList?albumID=" . $results['albumID'] ."'>View full album</a>";         
+                echo "<a class='btn btn-primary' style='float: right' href='imageList.php?albumID=" . $results['albumID'] ."'>View full album</a>";         
                 echo "<p class='lead'>" . $results['description'] . "</p>";
                 echo "<p class='lead'>Album: " . $results['title'] . "</p>";
                 echo "<p class='lead'>" . $results['creationTime'] . "</p>";
