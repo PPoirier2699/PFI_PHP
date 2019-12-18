@@ -4,7 +4,7 @@
 <script src="JS\edit.js"></script>
 <script src="JS\comment.js"></script>
 <script src="JS\like.js"></script>
-<script src='JS/previewImage.js'></script>
+<script src='JS\previewImage.js'></script>
 <?php
 		include_once __DIR__ . "/../CLASSES/IMAGE/image.php";
 		include_once __DIR__ . "/../CLASSES/ALBUM/album.php";
