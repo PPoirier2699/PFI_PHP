@@ -257,4 +257,23 @@ class AlbumTDG extends DBAO{
         $conn = null;
         return $res['id'];
     }
+    public function edit_desc($id, $content){
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "UPDATE $tableName set description=:description where id=:id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':description', $content);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $res = true;
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $res['id'];
+    }
 }
