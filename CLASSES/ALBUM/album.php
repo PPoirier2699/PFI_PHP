@@ -184,6 +184,18 @@ class Album{
         $TDG = null;
         return $res;
     }
+    public function edit_desc($id, $content) {
+        $TDG = AlbumTDG::getInstance();
+        $res = $TDG->edit_desc($id, $content);
+
+        if(!$res)
+        {
+            $TDG = null;
+            return false;
+        }
+        $TDG = null;
+        return $res;
+    }
 }
 
 
