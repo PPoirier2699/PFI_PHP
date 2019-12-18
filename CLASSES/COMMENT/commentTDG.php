@@ -129,6 +129,28 @@ class CommentTDG extends DBAO{
         $conn = null;
         return $result;
     }
+    public function get_comment($id, $type){
+        
+        try{
+            $conn = $this->connect();
+            $tableName = $this->tableName;
+            $query = "SELECT id, objectType, objectID, creationTime, content, authorID FROM $tableName WHERE objectID=:objectID and objectType=:objectType";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':objectID', $id);
+            $stmt->bindParam(':objectType', $type);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+        }
+        
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $result;
+    }
     public function add_comment($objectType, $objectID, $creationTime, $content, $authorID){
         
         try{
