@@ -101,21 +101,48 @@ class Album{
         $TDG = AlbumTDG::getInstance();
         return $TDG->get_top_album($newAlbumCount);
     }
-    public function display_albums($res){
+   public function display_album($res) {
+
+        $nb = 4;
         if(!empty($res)){      
-            foreach($res as $info){ 
-                echo "<div id='commentForJS' class='container border w-75 p-3 mt-5' style='float: left'>";
-                echo "<p><a style='text-decoration: none; color: black; font-size: 20px;' href='myProfile.php?userID=" . $info['userID'] . " '> " . $info['username'] ." </a></p>";
-                echo "<p><a style='text-decoration: none; color: black; font-size: 20px;' href='imageList.php?albumID=" . $info['id'] . "'>" .$info['title'] . "</a></p>";
-                echo "<img src=' " . $info['url'] . "'  alt='img' height='100'>";
-                echo "<p class='lead'>Description: " . $info['description'] . "</p>";
-                echo "<p class='lead'> " . $info['creationTime'] . "</p>";
-                if(validate_session() && $info["username"] == $_SESSION["userName"]) {			      
-                    echo "<button onClick='deleteFunc(" . $info['id'] . ", `album`);' type='button' class='btn'>Delete</button>";
-                } 
-                 echo "</div>";
+            foreach($res as $info){
+                echo "<div class='container border w-75 p-3 mt-5' style='float: left'>";
+                echo "<p><a style='text-decoration: none; color: black; font-size: 20px;' href='#'>" . $info['username'] . "</a></p>";
+                echo "<p><a style='text-decoration: none; color: black; font-size: 20px;' href='imageList.php?albumID=".$info['id']."'>".$info['title']."</a></p>";
+                echo "<img src='". $info['url']."' alt='img' height='100'>";
+                echo "<p class='lead'>Description: ". $info['description'] ."</p>";
+                echo "<p class='lead'>". $info['creationTime'] ."</p>";
+    
+                if(validate_session() && $info["username"] == $_SESSION["userName"]) {	
+                    echo "<button value='". $info['id'] ."' onClick='edit_button_click(`Alb".$info['id']."`,this, `album`);' type='button' class='btn'><u>Edit</u> </button>";
+                    echo "<button onClick='deleteFunc(`Alb". $info['id']. "`," .$info['id'] . ", `album`);' type='button' class='btn'>Delete</button>";
+                }
+                
+                echo "<div id='Alb". $info['id'] ."'></div>";
+                
+                echo "<div style='width:100%; margin:0;' class='commentParent'>";
+    
+                    echo "<script>load_comment(`Alb". $info['id'] ."`, ". $nb .",`". $info['id']."`,`album`);</script>";
+    
+                echo "<button class='btn btn-primary' onClick='load_more_comment(`Alb". $info['id'] ."`)'>More Comment</button>";
+                    
+                    if(validate_session()) {               
+                    echo "<div class='comment'>";
+                        echo "<div style='float: left;font-weight: bold;'>". $_SESSION["userName"] ."</div>";
+                        echo "<textarea id='Alb". $info['id'] ."Txt' name='content' class='form-control' rows='2'></textarea>";
+                        echo "<button onClick='add_comment(`Alb". $info['id'] ."`," .$info['id'] .", `album`);' class='btn btn-primary' style='font-size:12;margin-top:0;margin-bottom:0; margin-left:30%; margin-right:30%; width:40%;'>Add Comment</button>";
+                    echo "</div>";
+                    }
+
+                echo "</div>";
+                echo "</div>";
             }                                 
         }   
+    echo "</div>";
+    echo "<div class='container w-75 mt-5' style='float: left; position: relative;'>";
+        echo "<button class='btn btn-light' style='position: absolute; left: 0;' id='moreAlbums'>More albums</button>";
+    echo "</div>";
+    
     }
     public function no_more_albums_to_display($albumNewCount,$res){
         if($albumNewCount > count($res)){
