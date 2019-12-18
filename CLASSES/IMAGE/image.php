@@ -145,6 +145,7 @@ class Image{
         }
     }
     public function edit_image($id, $description) {
+        $description = Validator::sanitize($description);
         $TDG = ImageTDG::getInstance();
         $resp = $TDG->edit_image($id, $description);
 
