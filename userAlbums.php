@@ -1,5 +1,5 @@
 <?php 
-    include_once __DIR__ . "./UTILS/sessionHandler.php";
+    include_once __DIR__ . "/UTILS/sessionHandler.php";
     session_start();
 
     $title = "user Album";
