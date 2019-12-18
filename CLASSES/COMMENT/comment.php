@@ -95,14 +95,15 @@ class Comment{
         $TDG = null;
         return $resp;
     }
-    public function get_comment_by_id($id) {
+    public function get_comment($id, $type) {
         $TDG = CommentTDG::getInstance();
-        $resp = $TDG->get_by_objectID($id);
+        $resp = $TDG->get_comment($id, $type);
 
         $TDG = null;
         return $resp;
     }
     public function edit_comment($id, $content) {
+        $content = Validator::sanitize($content);
         $TDG = CommentTDG::getInstance();
         $resp = $TDG->edit_comment($id, $content);
 
