@@ -174,6 +174,29 @@ class CommentTDG extends DBAO{
         $conn = null;
         return $resp;
     }
+public function add_comment($objectType, $objectID, $creationTime, $content, $authorID){
+        
+        try{
+            $conn = $this->connect();
+            $query = "INSERT INTO comments (objectID, objectType, creationTime, content, authorID) VALUES (:objectID, :objectType, :creationTime, :content, :authorID)";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':objectID', $objectID);
+            $stmt->bindParam(':objectType', $objectType);
+            $stmt->bindParam(':creationTime', $creationTime);
+            $stmt->bindParam(':content', $content);
+            $stmt->bindParam(':authorID', $authorID);
+            $stmt->execute();
+            $resp =  true;
+        }
+        
+        catch(PDOException $e)
+        {
+            $resp =  false;
+        }
+        //fermeture de connection PDO
+        $conn = null;
+        return $resp;
+    }
     public function edit_comment($objectID, $content) {
         try{
             $conn = $this->connect();
