@@ -4,17 +4,17 @@ function load_more_comment(idbalise) {
   };
   function load_comment(idbalise, commentCount, objectID, objectType) {
     if (idbalise.startsWith("Alb")) {
-        console.log(idbalise);
         $('#'+idbalise).load("HTML/commentViewAlbum.php" , {
-            objectID : objectID,
+            objectID : idbalise.substring(3),
             objectType : objectType,
             commentNewCount : commentCount
           });  
     } else {  
+     
         $('#'+idbalise).load("HTML/commentView.php" , {
             objectID : objectID,
             objectType : objectType,
             commentNewCount : commentCount
-          }); 
+          }, function() { console.log(objectType);}); 
     }
   }

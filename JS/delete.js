@@ -4,7 +4,16 @@ function deleteFunc(idbalise, objectID, objectType) {
       objectType : objectType
     }, function() {
       if (objectType == 'comment') {
-        load_comment(idbalise, 4, idbalise.substring(3), objectType);
+        if (idbalise.startsWith('Alb')) {
+          id = objectID;
+          commentCount = 4;
+          type = objectType;
+        }
+        console.log(idbalise);
+        console.log(id);
+        console.log(type);
+        
+        load_comment(idbalise, commentCount, id, type);
       } else if (objectType == 'image') {
         location.reload();
       } else if (objectType == 'album') {
