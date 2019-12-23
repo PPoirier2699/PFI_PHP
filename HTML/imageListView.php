@@ -26,21 +26,23 @@
 		$album = $album->get_album($albumID);
 		//Set la variable de session avec les images de l'album courantes(que lutilisateur a clicke dessus ou autre)
 		$img = $img->get_all_image_by_album($albumID);
-		?>
-
-<main role="main">
-	<section class="jumbotron text-center">
-		<div class="container">
-			<h1><?php echo $album["title"];?></h1>
-			<input id="currentAlbumID" value="<?php echo $album["id"];?>" type="text" style="display:none;">
-		</div>
-	</section>
+		if(empty($img)){
+			echo "<h2 class='display-4'>This album no longer exists</h2>";
+		}
+		else{
+			?>
+		<main role="main">
+			<section class="jumbotron text-center">
+				<div class="container">
+					<h1><?php echo $album["title"];?></h1>
+					<input id="currentAlbumID" value="<?php echo $album["id"];?>" type="text" style="display:none;">
+				</div>
+			</section>
 
 	<div class="py-5 px-5 bg-light">
 			<div class="row">
 
 			<?php
-
 				foreach($img as $key => $value){
 						?>
 						<div class="col-md-4">
@@ -82,12 +84,17 @@
 							<button class="btn btn-primary" type="submit" style="margin-top: 5%; margin-left:30%; margin-right:30%; width:40%;">Submit</button>
 						</form>
 						<div   class="col" style="width:50%; padding:1%; margin:0 2%; position:relative;">
-							<img style="position: absolute; top: 0; bottom: 0; margin: auto;" class="bd-placeholder-img card-img-top" id="imageView" src="IMG/preview.png" alt='Image'>
+							<img style="position: absolute; top: 0; bottom: 0; margin: auto;" class="bd-placeholder-img card-img-top" id="imageView" src="IMG/addimage.png" alt='Image'>
 						</div>
 					</div>
 					<?php
 				}
 				?>
+				<?php 
+			}
+			?>
+
+		
 				
 			 
 		

@@ -129,8 +129,8 @@ class Album{
                     if(validate_session()) {               
                     echo "<div class='comment'>";
                         echo "<div style='float: left;font-weight: bold;'>". $_SESSION["userName"] ."</div>";
-                        echo "<textarea id='Alb". $info['id'] ."Txt' name='content' class='form-control' rows='2'></textarea>";
-                        echo "<button onClick='add_comment(`Alb". $info['id'] ."`," .$info['id'] .", `album`);' class='btn btn-primary' style='font-size:12;margin-top:0;margin-bottom:0; margin-left:30%; margin-right:30%; width:40%;'>Add Comment</button>";
+                        echo "<textarea id='Alb". $info['id'] ."Txt' name='content' class='form-control' rows='2'></textarea><br>";
+                        echo "<button onClick='add_comment(`Alb". $info['id'] ."`," .$info['id'] .", `album`);' class='btn btn-primary' style='font-size:12;margin-top:0;margin-bottom: 0; margin-left:30%; margin-right:30%; width:40%;'>Add Comment</button>";
                     echo "</div>";
                     }
 
@@ -138,8 +138,7 @@ class Album{
                 echo "</div>";
             }                                 
         }   
-    echo "</div>";
-    echo "<div class='container w-75 mt-5' style='float: left; position: relative;'>";
+    echo "<div id='albums' class='container w-75 mt-5' style='float: left; position: relative;'>";
         echo "<button class='btn btn-light' style='position: absolute; left: 0;' id='moreAlbums'>More albums</button>";
     echo "</div>";
     
@@ -147,7 +146,7 @@ class Album{
     public function no_more_albums_to_display($albumNewCount,$res){
         if($albumNewCount > count($res)){
             echo"<script>$('#moreAlbums').remove();
-            $('#albums').append(`<h6 style=position: absolute; bottom: 0; float: left;'>No more albums</h6>`);</script>";
+            $('#albums').append(`<h6 style='position: absolute; left: 0;'>No more albums</h6>`);</script>";
         }
     }
     public function display_album_search($res){
@@ -168,33 +167,17 @@ class Album{
         $TDG = AlbumTDG::getInstance();
         return $TDG->search_album($like,$newAlbumCount);
     }
-    public function search_all_albums($userName){
+    public function search_all_albums($userName,$newAlbumCount){
         $TDG = AlbumTDG::getInstance();
-        return $TDG->search_all_albums($userName);
+        return $TDG->search_all_albums($userName,$newAlbumCount);
     }
     public function delete_album($id) {
         $TDG = AlbumTDG::getInstance();
-        $res = $TDG->delete_album($id);
-
-        if(!$res)
-        {
-            $TDG = null;
-            return false;
-        }
-        $TDG = null;
-        return $res;
+        return $TDG->delete_album($id);
     }
     public function edit_desc($id, $content) {
         $TDG = AlbumTDG::getInstance();
-        $res = $TDG->edit_desc($id, $content);
-
-        if(!$res)
-        {
-            $TDG = null;
-            return false;
-        }
-        $TDG = null;
-        return $res;
+        return $TDG->edit_desc($id, $content);
     }
 }
 

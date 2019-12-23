@@ -254,7 +254,7 @@ class User
         else{            
             foreach($res as $results){
                 echo "<h4 class='d-inline'><a style='text-decoration: none; color: black' href='#'>" . $results['username'] . "</a></h4>";
-                echo "<a class='btn btn-primary' style='float: right' href='userAlbums.php?user=".$results['username']."'>View user albums</a>";         
+                echo "<a class='btn btn-primary' style='float: right' href='userAlbums.php?userID=".$results['id']."'>View user albums</a>";         
                 echo "<img src='" .$results['profilePictureURL'] ."'height='100' class='m-3'>";
                 echo "<br>";
             }
